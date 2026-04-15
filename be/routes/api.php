@@ -121,4 +121,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/notifications/activity',           [NotificationController::class, 'registerFcmToken']); // legacy alias
 
     Route::get('/me', [AuthController::class, 'me']);
+    Route::get('/', function () {
+    return response()->json([
+        'message' => 'API SapaHSE jalan 🚀'
+    ]);
+});
 });
