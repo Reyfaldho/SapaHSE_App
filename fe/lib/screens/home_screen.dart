@@ -52,7 +52,8 @@ class _HomeScreenState extends State<HomeScreen> {
   void _onScroll() {
     if (_scrollController.position.pixels >=
         _scrollController.position.maxScrollExtent - 200) {
-      final filteredCount = _getFilteredReports(ReportStore.instance.reports.value).length;
+      final filteredCount =
+          _getFilteredReports(ReportStore.instance.reports.value).length;
       if (!_isLoadingMore && _displayedCount < filteredCount) {
         setState(() {
           _isLoadingMore = true;
@@ -154,7 +155,8 @@ class _HomeScreenState extends State<HomeScreen> {
                             children: [
                               const Text('Report List',
                                   style: TextStyle(
-                                      fontWeight: FontWeight.bold, fontSize: 16)),
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16)),
                               const Spacer(),
                               Text(
                                 '${filtered.length} laporan',
@@ -172,7 +174,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     valueListenable: ReportStore.instance.reports,
                     builder: (context, allReports, _) {
                       final filtered = _getFilteredReports(allReports);
-                      final displayList = filtered.take(_displayedCount).toList();
+                      final displayList =
+                          filtered.take(_displayedCount).toList();
 
                       if (filtered.isEmpty) {
                         return const SliverFillRemaining(
@@ -218,7 +221,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                             );
                           },
-                          childCount: displayList.length + (_isLoadingMore ? 1 : 0),
+                          childCount:
+                              displayList.length + (_isLoadingMore ? 1 : 0),
                         ),
                       );
                     },
@@ -442,11 +446,10 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           const SizedBox(height: 12),
           GestureDetector(
-            onTap: () =>
-                setState(() {
-                  _showOpenInProgress = !_showOpenInProgress;
-                  _displayedCount = 5;
-                }),
+            onTap: () => setState(() {
+              _showOpenInProgress = !_showOpenInProgress;
+              _displayedCount = 5;
+            }),
             behavior: HitTestBehavior.opaque,
             child: Row(
               children: [
@@ -477,27 +480,27 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 if (_showOpenInProgress) ...[
                   const SizedBox(width: 8),
-                    ValueListenableBuilder<List<Report>>(
-                      valueListenable: ReportStore.instance.reports,
-                      builder: (context, reports, _) {
-                        final count = _getFilteredReports(reports).length;
-                        return Container(
-                          padding:
-                              const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-                          decoration: BoxDecoration(
-                            color: const Color(0xFF1A56C4).withValues(alpha: 0.1),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Text(
-                            '$count',
-                            style: const TextStyle(
-                                fontSize: 11,
-                                color: Color(0xFF1A56C4),
-                                fontWeight: FontWeight.bold),
-                          ),
-                        );
-                      },
-                    ),
+                  ValueListenableBuilder<List<Report>>(
+                    valueListenable: ReportStore.instance.reports,
+                    builder: (context, reports, _) {
+                      final count = _getFilteredReports(reports).length;
+                      return Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 8, vertical: 2),
+                        decoration: BoxDecoration(
+                          color: const Color(0xFF1A56C4).withValues(alpha: 0.1),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Text(
+                          '$count',
+                          style: const TextStyle(
+                              fontSize: 11,
+                              color: Color(0xFF1A56C4),
+                              fontWeight: FontWeight.bold),
+                        ),
+                      );
+                    },
+                  ),
                 ],
               ],
             ),
@@ -603,112 +606,112 @@ class _ReportCard extends StatelessWidget {
                 ),
               ),
 
-            // ── Content ──────────────────────────────────────────────
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.all(12),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // Type badge + Severity badge
-                    Row(
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 8, vertical: 2),
-                          decoration: BoxDecoration(
-                            color: _typeColor.withValues(alpha: 0.1),
-                            borderRadius: BorderRadius.circular(8),
+              // ── Content ──────────────────────────────────────────────
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(12),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // Type badge + Severity badge
+                      Row(
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 8, vertical: 2),
+                            decoration: BoxDecoration(
+                              color: _typeColor.withValues(alpha: 0.1),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Icon(_typeIcon, size: 11, color: _typeColor),
+                                const SizedBox(width: 3),
+                                Text(
+                                  report.type.label,
+                                  style: TextStyle(
+                                      fontSize: 10,
+                                      color: _typeColor,
+                                      fontWeight: FontWeight.w600),
+                                ),
+                              ],
+                            ),
                           ),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Icon(_typeIcon, size: 11, color: _typeColor),
-                              const SizedBox(width: 3),
-                              Text(
-                                report.type.label,
-                                style: TextStyle(
-                                    fontSize: 10,
-                                    color: _typeColor,
-                                    fontWeight: FontWeight.w600),
-                              ),
-                            ],
+                          const Spacer(),
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 8, vertical: 2),
+                            decoration: BoxDecoration(
+                              color: _severityColor,
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Text(
+                              report.severity.label,
+                              style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 9,
+                                  fontWeight: FontWeight.w600),
+                            ),
                           ),
-                        ),
-                        const Spacer(),
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 8, vertical: 2),
-                          decoration: BoxDecoration(
-                            color: _severityColor,
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Text(
-                            report.severity.label,
-                            style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 9,
-                                fontWeight: FontWeight.w600),
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 8),
+                        ],
+                      ),
+                      const SizedBox(height: 8),
 
-                    // Title
-                    Text(
-                      report.title,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                          fontSize: 13,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black87),
-                    ),
-                    const SizedBox(height: 4),
+                      // Title
+                      Text(
+                        report.title,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                            fontSize: 13,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black87),
+                      ),
+                      const SizedBox(height: 4),
 
-                    // Description
-                    Text(
-                      report.description,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                          fontSize: 11, color: Colors.grey, height: 1.4),
-                    ),
-                    const SizedBox(height: 8),
+                      // Description
+                      Text(
+                        report.description,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                            fontSize: 11, color: Colors.grey, height: 1.4),
+                      ),
+                      const SizedBox(height: 8),
 
-                    // Status badge
-                    Row(
-                      children: [
-                        Container(
-                          width: 8,
-                          height: 8,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: _statusColor,
+                      // Status badge
+                      Row(
+                        children: [
+                          Container(
+                            width: 8,
+                            height: 8,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: _statusColor,
+                            ),
                           ),
-                        ),
-                        const SizedBox(width: 6),
-                        Text(
-                          report.status.label,
-                          style: TextStyle(
-                              fontSize: 11,
-                              fontWeight: FontWeight.bold,
-                              color: _statusColor),
-                        ),
-                        const Spacer(),
-                        Icon(Icons.chevron_right,
-                            color: Colors.grey.shade400, size: 16),
-                      ],
-                    ),
-                  ],
+                          const SizedBox(width: 6),
+                          Text(
+                            report.status.label,
+                            style: TextStyle(
+                                fontSize: 11,
+                                fontWeight: FontWeight.bold,
+                                color: _statusColor),
+                          ),
+                          const Spacer(),
+                          Icon(Icons.chevron_right,
+                              color: Colors.grey.shade400, size: 16),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
-    ),
-  );
-}
+    );
+  }
 }

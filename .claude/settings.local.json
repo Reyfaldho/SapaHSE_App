@@ -1,7 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "Bash(gh pr create --title 'Fix merge conflicts in register_screen.dart and update Flutter screens/services' --body ':*)"
-    ]
-  }
-}
