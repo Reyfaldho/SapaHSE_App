@@ -81,7 +81,8 @@ class ReportStore {
       }
     }
 
-    if (r.status == ReportStatus.inProgress || r.status == ReportStatus.closed) {
+    if (r.status == ReportStatus.inProgress ||
+        r.status == ReportStatus.closed) {
       events.addAll([
         TimelineEvent(
           status: ReportStatus.open,
@@ -107,7 +108,8 @@ class ReportStore {
       ]);
 
       final sub = r.subStatus;
-      if (sub == ReportSubStatus.executing || sub == ReportSubStatus.reviewing) {
+      if (sub == ReportSubStatus.executing ||
+          sub == ReportSubStatus.reviewing) {
         events.add(TimelineEvent(
           status: ReportStatus.inProgress,
           subStatus: ReportSubStatus.executing,
@@ -171,18 +173,18 @@ class ReportStore {
 
     final old = list[idx];
     final updated = Report(
-      id:          old.id,
-      title:       old.title,
+      id: old.id,
+      title: old.title,
       description: old.description,
-      type:        old.type,
-      category:    old.category,
-      severity:    old.severity,
-      status:      newStatus,
-      subStatus:   newSubStatus,
-      location:    old.location,
-      createdAt:   old.createdAt,
-      reportedBy:  old.reportedBy,
-      imageUrl:    old.imageUrl,
+      type: old.type,
+      category: old.category,
+      severity: old.severity,
+      status: newStatus,
+      subStatus: newSubStatus,
+      location: old.location,
+      createdAt: old.createdAt,
+      reportedBy: old.reportedBy,
+      imageUrl: old.imageUrl,
     );
     list[idx] = updated;
     reports.value = list;
@@ -190,11 +192,11 @@ class ReportStore {
     // Append timeline event
     _timelines.putIfAbsent(id, () => _seedTimeline(old));
     _timelines[id]!.add(TimelineEvent(
-      status:    newStatus,
+      status: newStatus,
       subStatus: newSubStatus,
       timestamp: DateTime.now(),
-      actor:     actor,
-      note:      note ?? _defaultNote(newStatus, newSubStatus),
+      actor: actor,
+      note: note ?? _defaultNote(newStatus, newSubStatus),
       photoPath: photoPath,
     ));
 
@@ -204,21 +206,33 @@ class ReportStore {
   String _defaultNote(ReportStatus s, ReportSubStatus? sub) {
     if (sub != null) {
       switch (sub) {
-        case ReportSubStatus.validating: return 'Laporan sedang divalidasi.';
-        case ReportSubStatus.approved:   return 'Laporan telah disetujui.';
-        case ReportSubStatus.assigned:   return 'Laporan telah ditugaskan.';
-        case ReportSubStatus.preparing:  return 'Tim sedang mempersiapkan penanganan.';
-        case ReportSubStatus.executing:  return 'Penanganan sedang dilaksanakan.';
-        case ReportSubStatus.reviewing:  return 'Hasil penanganan sedang direview.';
-        case ReportSubStatus.resolved:   return 'Laporan selesai ditangani dan ditutup.';
-        case ReportSubStatus.rejected:   return 'Laporan ditolak.';
-        case ReportSubStatus.deferred:   return 'Penanganan laporan ditunda.';
+        case ReportSubStatus.validating:
+          return 'Laporan sedang divalidasi.';
+        case ReportSubStatus.approved:
+          return 'Laporan telah disetujui.';
+        case ReportSubStatus.assigned:
+          return 'Laporan telah ditugaskan.';
+        case ReportSubStatus.preparing:
+          return 'Tim sedang mempersiapkan penanganan.';
+        case ReportSubStatus.executing:
+          return 'Penanganan sedang dilaksanakan.';
+        case ReportSubStatus.reviewing:
+          return 'Hasil penanganan sedang direview.';
+        case ReportSubStatus.resolved:
+          return 'Laporan selesai ditangani dan ditutup.';
+        case ReportSubStatus.rejected:
+          return 'Laporan ditolak.';
+        case ReportSubStatus.deferred:
+          return 'Penanganan laporan ditunda.';
       }
     }
     switch (s) {
-      case ReportStatus.open:       return 'Status dikembalikan ke Open.';
-      case ReportStatus.inProgress: return 'Laporan sedang ditindaklanjuti.';
-      case ReportStatus.closed:     return 'Laporan selesai ditangani dan ditutup.';
+      case ReportStatus.open:
+        return 'Status dikembalikan ke Open.';
+      case ReportStatus.inProgress:
+        return 'Laporan sedang ditindaklanjuti.';
+      case ReportStatus.closed:
+        return 'Laporan selesai ditangani dan ditutup.';
     }
   }
 

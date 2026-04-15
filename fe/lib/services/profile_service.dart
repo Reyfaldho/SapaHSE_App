@@ -1,10 +1,6 @@
 import 'api_service.dart';
 import 'storage_service.dart';
-<<<<<<< HEAD
-import '../models/profile_model.dart';
-=======
 import '../models/user_model.dart';
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
 
 class ProfileService {
   // ── Get profile from API (always fresh) ──────────────────────────────────
@@ -21,65 +17,9 @@ class ProfileService {
       return ProfileResult.error('Respons server tidak valid.');
     }
 
-<<<<<<< HEAD
-    await StorageService.saveUser(userData);
-    return ProfileResult.success(ProfileData.fromJson(userData));
-  }
-
-  // ── Get licenses from profile ────────────────────────────────────────────────────────
-  static Future<LicensesResult> getLicenses() async {
-    final response = await ApiService.get('/profile');
-    if (!response.success) {
-      return LicensesResult.error(response.errorMessage ?? 'Gagal memuat lisensi.');
-    }
-    final userData = response.data['data'] as Map<String, dynamic>?;
-    if (userData == null) {
-      return LicensesResult.error('Respons server tidak valid.');
-    }
-    final licenses = (userData['licenses'] as List<dynamic>?)
-            ?.map((l) => UserLicense.fromJson(l as Map<String, dynamic>))
-            .toList() ??
-        [];
-    return LicensesResult.success(licenses);
-  }
-
-  // ── Get certifications from profile ──────────────────────────────────────────────
-  static Future<CertificationsResult> getCertifications() async {
-    final response = await ApiService.get('/profile');
-    if (!response.success) {
-      return CertificationsResult.error(response.errorMessage ?? 'Gagal memuat sertifikasi.');
-    }
-    final userData = response.data['data'] as Map<String, dynamic>?;
-    if (userData == null) {
-      return CertificationsResult.error('Respons server tidak valid.');
-    }
-    final certs = (userData['certifications'] as List<dynamic>?)
-            ?.map((c) => UserCertification.fromJson(c as Map<String, dynamic>))
-            .toList() ??
-        [];
-    return CertificationsResult.success(certs);
-  }
-
-  // ── Get medicals from profile ──────────────────────────────────────────────────────
-  static Future<MedicalsResult> getMedicals() async {
-    final response = await ApiService.get('/profile');
-    if (!response.success) {
-      return MedicalsResult.error(response.errorMessage ?? 'Gagal memuat data medis.');
-    }
-    final userData = response.data['data'] as Map<String, dynamic>?;
-    if (userData == null) {
-      return MedicalsResult.error('Respons server tidak valid.');
-    }
-    final medicals = (userData['medicals'] as List<dynamic>?)
-            ?.map((m) => UserMedical.fromJson(m as Map<String, dynamic>))
-            .toList() ??
-        [];
-    return MedicalsResult.success(medicals);
-=======
     // Update local cache with fresh data
     await StorageService.saveUser(userData);
     return ProfileResult.success(UserModel.fromJson(userData));
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
   }
 
   // ── Update profile (email, phone, position, department) ──────────────────
@@ -108,11 +48,7 @@ class ProfileService {
     }
 
     await StorageService.saveUser(userData);
-<<<<<<< HEAD
-    return ProfileResult.success(ProfileData.fromJson(userData));
-=======
     return ProfileResult.success(UserModel.fromJson(userData));
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
   }
 
   // ── Change password ───────────────────────────────────────────────────────
@@ -144,21 +80,6 @@ class ProfileService {
   }
 }
 
-<<<<<<< HEAD
-// ══════════════════════════════════════════════════════════════════════════════
-// RESULT WRAPPERS
-// ══════════════════════════════════════════════════════════════════════════════
-
-class ProfileResult {
-  final bool success;
-  final ProfileData? data;
-  final String? errorMessage;
-
-  ProfileResult._({required this.success, this.data});
-
-  factory ProfileResult.success(ProfileData data) =>
-      ProfileResult._(success: true, data: data);
-=======
 // ── Result wrappers ───────────────────────────────────────────────────────────
 class ProfileResult {
   final bool success;
@@ -169,57 +90,11 @@ class ProfileResult {
 
   factory ProfileResult.success(UserModel user) =>
       ProfileResult._(success: true, user: user);
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
 
   factory ProfileResult.error(String message) =>
       ProfileResult._(success: false, errorMessage: message);
 }
 
-<<<<<<< HEAD
-class LicensesResult {
-  final bool success;
-  final List<UserLicense> licenses;
-  final String? errorMessage;
-
-  LicensesResult._({required this.success, this.licenses = const [], this.errorMessage});
-
-  factory LicensesResult.success(List<UserLicense> licenses) =>
-      LicensesResult._(success: true, licenses: licenses);
-
-  factory LicensesResult.error(String message) =>
-      LicensesResult._(success: false, errorMessage: message);
-}
-
-class CertificationsResult {
-  final bool success;
-  final List<UserCertification> certifications;
-  final String? errorMessage;
-
-  CertificationsResult._({required this.success, this.certifications = const [], this.errorMessage});
-
-  factory CertificationsResult.success(List<UserCertification> certifications) =>
-      CertificationsResult._(success: true, certifications: certifications);
-
-  factory CertificationsResult.error(String message) =>
-      CertificationsResult._(success: false, errorMessage: message);
-}
-
-class MedicalsResult {
-  final bool success;
-  final List<UserMedical> medicals;
-  final String? errorMessage;
-
-  MedicalsResult._({required this.success, this.medicals = const [], this.errorMessage});
-
-  factory MedicalsResult.success(List<UserMedical> medicals) =>
-      MedicalsResult._(success: true, medicals: medicals);
-
-  factory MedicalsResult.error(String message) =>
-      MedicalsResult._(success: false, errorMessage: message);
-}
-
-=======
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
 class SimpleResult {
   final bool success;
   final String message;

@@ -1,26 +1,9 @@
 enum ReportType { hazard, inspection }
+
 enum ReportSeverity { low, medium, high }
+
 enum ReportStatus { open, inProgress, closed }
 
-<<<<<<< HEAD
-// Sub-kategori hazard / inspection
-enum HazardCategory {
-  unsafeAct,
-  unsafeCondition,
-  nearMiss,
-  propertyDamage,
-  environmentalHazard,
-  spill,
-  slipTripFall,
-  fireSafety,
-  // Inspection types
-  routineInspection,
-  electricalInspection,
-  equipmentInspection,
-}
-
-=======
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
 // Sub-status per kategori utama
 enum ReportSubStatus {
   // Open
@@ -42,10 +25,7 @@ class Report {
   final String title;
   final String description;
   final ReportType type;
-<<<<<<< HEAD
-  final HazardCategory? category;
-=======
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
+  final String? category;
   final ReportSeverity severity;
   final ReportStatus status;
   final ReportSubStatus? subStatus;
@@ -59,10 +39,7 @@ class Report {
     required this.title,
     required this.description,
     required this.type,
-<<<<<<< HEAD
     this.category,
-=======
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
     required this.severity,
     required this.status,
     this.subStatus,
@@ -76,39 +53,23 @@ class Report {
 extension ReportTypeLabel on ReportType {
   String get label {
     switch (this) {
-      case ReportType.hazard:     return 'Hazard';
-      case ReportType.inspection: return 'Inspection';
+      case ReportType.hazard:
+        return 'Hazard';
+      case ReportType.inspection:
+        return 'Inspection';
     }
   }
 }
 
-<<<<<<< HEAD
-extension HazardCategoryLabel on HazardCategory {
-  String get label {
-    switch (this) {
-      case HazardCategory.unsafeAct:            return 'Unsafe Act';
-      case HazardCategory.unsafeCondition:       return 'Unsafe Condition';
-      case HazardCategory.nearMiss:              return 'Near Miss';
-      case HazardCategory.propertyDamage:        return 'Property Damage';
-      case HazardCategory.environmentalHazard:   return 'Environmental Hazard';
-      case HazardCategory.spill:                 return 'Spill';
-      case HazardCategory.slipTripFall:          return 'Slip, Trip, Fall';
-      case HazardCategory.fireSafety:            return 'Fire Safety';
-      case HazardCategory.routineInspection:     return 'Routine Inspection';
-      case HazardCategory.electricalInspection:  return 'Electrical Inspection';
-      case HazardCategory.equipmentInspection:   return 'Equipment Inspection';
-    }
-  }
-}
-
-=======
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
 extension ReportSeverityLabel on ReportSeverity {
   String get label {
     switch (this) {
-      case ReportSeverity.low:    return 'Low';
-      case ReportSeverity.medium: return 'Medium';
-      case ReportSeverity.high:   return 'High';
+      case ReportSeverity.low:
+        return 'Low';
+      case ReportSeverity.medium:
+        return 'Medium';
+      case ReportSeverity.high:
+        return 'High';
     }
   }
 }
@@ -116,9 +77,12 @@ extension ReportSeverityLabel on ReportSeverity {
 extension ReportStatusLabel on ReportStatus {
   String get label {
     switch (this) {
-      case ReportStatus.open:       return 'Open';
-      case ReportStatus.inProgress: return 'In Progress';
-      case ReportStatus.closed:     return 'Closed';
+      case ReportStatus.open:
+        return 'Open';
+      case ReportStatus.inProgress:
+        return 'In Progress';
+      case ReportStatus.closed:
+        return 'Closed';
     }
   }
 }
@@ -126,15 +90,24 @@ extension ReportStatusLabel on ReportStatus {
 extension ReportSubStatusInfo on ReportSubStatus {
   String get label {
     switch (this) {
-      case ReportSubStatus.validating: return 'Validating';
-      case ReportSubStatus.approved:   return 'Approved';
-      case ReportSubStatus.assigned:   return 'Assigned';
-      case ReportSubStatus.preparing:  return 'Preparing';
-      case ReportSubStatus.executing:  return 'Executing';
-      case ReportSubStatus.reviewing:  return 'Reviewing';
-      case ReportSubStatus.resolved:   return 'Resolved';
-      case ReportSubStatus.rejected:   return 'Rejected';
-      case ReportSubStatus.deferred:   return 'Deferred';
+      case ReportSubStatus.validating:
+        return 'Validating';
+      case ReportSubStatus.approved:
+        return 'Approved';
+      case ReportSubStatus.assigned:
+        return 'Assigned';
+      case ReportSubStatus.preparing:
+        return 'Preparing';
+      case ReportSubStatus.executing:
+        return 'Executing';
+      case ReportSubStatus.reviewing:
+        return 'Reviewing';
+      case ReportSubStatus.resolved:
+        return 'Resolved';
+      case ReportSubStatus.rejected:
+        return 'Rejected';
+      case ReportSubStatus.deferred:
+        return 'Deferred';
     }
   }
 
@@ -158,11 +131,23 @@ extension ReportSubStatusInfo on ReportSubStatus {
   static List<ReportSubStatus> forStatus(ReportStatus s) {
     switch (s) {
       case ReportStatus.open:
-        return [ReportSubStatus.validating, ReportSubStatus.approved, ReportSubStatus.assigned];
+        return [
+          ReportSubStatus.validating,
+          ReportSubStatus.approved,
+          ReportSubStatus.assigned
+        ];
       case ReportStatus.inProgress:
-        return [ReportSubStatus.preparing, ReportSubStatus.executing, ReportSubStatus.reviewing];
+        return [
+          ReportSubStatus.preparing,
+          ReportSubStatus.executing,
+          ReportSubStatus.reviewing
+        ];
       case ReportStatus.closed:
-        return [ReportSubStatus.resolved, ReportSubStatus.rejected, ReportSubStatus.deferred];
+        return [
+          ReportSubStatus.resolved,
+          ReportSubStatus.rejected,
+          ReportSubStatus.deferred
+        ];
     }
   }
 }
