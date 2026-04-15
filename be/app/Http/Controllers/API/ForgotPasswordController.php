@@ -18,7 +18,6 @@ class ForgotPasswordController extends Controller
     public function sendResetOtp(Request $request)
     {
         $request->validate([
-<<<<<<< HEAD
             'personal_email' => 'required|string',
         ]);
 
@@ -26,23 +25,12 @@ class ForgotPasswordController extends Controller
                     ->orWhere('work_email', $request->personal_email)
                     ->orWhere('employee_id', $request->personal_email)
                     ->first();
-=======
-            'personal_email' => 'required|email',
-        ]);
-
-        $user = User::where('personal_email', $request->personal_email)->first();
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
 
         // Selalu kembalikan success agar tidak bisa ditebak apakah email terdaftar
         if (! $user) {
             return response()->json([
                 'status'  => 'success',
-<<<<<<< HEAD
                 'message' => 'Jika data terdaftar, tautan reset password akan dikirimkan ke email pribadi Anda.',            ]);
-=======
-                'message' => 'Jika email terdaftar, tautan reset password akan dikirimkan ke email Anda.',
-            ]);
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
         }
 
         $token = Str::random(64);

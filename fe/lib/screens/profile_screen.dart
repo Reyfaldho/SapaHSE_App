@@ -60,7 +60,7 @@ class _ProfileScreenState extends State<ProfileScreen>
       // No cache and API failed
       setState(() => _loadingUser = false);
     }
-    return null;
+    return;
   }
 
   Future<void> _pickImage() async {
@@ -129,7 +129,7 @@ class _ProfileScreenState extends State<ProfileScreen>
       MaterialPageRoute(builder: (_) => const LoginScreen()),
       (route) => false,
     );
-    return null;
+    return;
   }
 }
 

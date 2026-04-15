@@ -270,11 +270,6 @@ class DatabaseSeeder extends Seeder
 
         UserMedical::create([
             'user_id'           => $faiz->id,
-<<<<<<< HEAD
-            'title'            => 'Medical Check-Up Tahunan 2026',
-            'patient_name'     => 'Muhammad Faiz',
-=======
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
             'checkup_date'      => now()->subMonths(6)->toDateString(),
             'blood_type'        => 'O+',
             'height'            => '172 cm',
@@ -282,34 +277,10 @@ class DatabaseSeeder extends Seeder
             'blood_pressure'    => '118/76 mmHg',
             'allergies'         => 'Tidak ada',
             'result'            => 'Fit to Work',
-<<<<<<< HEAD
-            'doctor_name'     => 'dr. Ahmad Rizal, Sp.KO',
-            'doctor_contact' => '0812-3456-7890',
-            'facility_name'   => 'Klinik Pratama Bukit Energi',
-            'facility_contact'=> '0541-123456',
-            'doctor_notes'     => 'Kondisi kesehatan baik. Disarankan tetap rutin berolahraga.',
-            'next_checkup_date' => now()->addMonths(6)->toDateString(),
-            'checklist_items'   => json_encode([
-                ['label' => 'Pemeriksaan Fisik Umum', 'done' => true],
-                ['label' => 'Tes Darah Lengkap (CBC)', 'done' => true],
-                ['label' => 'Tes Fungsi Hati (SGOT/SGPT)', 'done' => true],
-                ['label' => 'Tes Fungsi Ginjal (Creatinine/Urea)', 'done' => true],
-                ['label' => 'Tes Gula Darah (GDS/GDS Puasa)', 'done' => true],
-                ['label' => 'Tes Kolesterol Total', 'done' => false],
-                ['label' => 'Elektrokardiogram (EKG)', 'done' => true],
-                ['label' => 'Rontgen Dada (Thoraks)', 'done' => true],
-            ]),
-        ]);
-        UserMedical::create([
-            'user_id'           => $faiz->id,
-            'title'            => 'Medical Check-Up Tahunan 2025',
-            'patient_name'     => 'Muhammad Faiz',
-=======
             'next_checkup_date' => now()->addMonths(6)->toDateString(),
         ]);
         UserMedical::create([
             'user_id'           => $faiz->id,
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
             'checkup_date'      => now()->subYear()->toDateString(),
             'blood_type'        => 'O+',
             'height'            => '172 cm',
@@ -317,34 +288,10 @@ class DatabaseSeeder extends Seeder
             'blood_pressure'    => '120/78 mmHg',
             'allergies'         => 'Tidak ada',
             'result'            => 'Fit to Work',
-<<<<<<< HEAD
-            'doctor_name'     => 'dr. Ahmad Rizal, Sp.KO',
-            'doctor_contact' => '0812-3456-7890',
-            'facility_name'   => 'Klinik Pratama Bukit Energi',
-            'facility_contact'=> '0541-123456',
-            'doctor_notes'     => 'Kondisi kesehatan baik secara keseluruhan.',
-            'next_checkup_date' => now()->subMonths(6)->toDateString(),
-            'checklist_items'   => json_encode([
-                ['label' => 'Pemeriksaan Fisik Umum', 'done' => true],
-                ['label' => 'Tes Darah Lengkap (CBC)', 'done' => true],
-                ['label' => 'Tes Fungsi Hati (SGOT/SGPT)', 'done' => true],
-                ['label' => 'Tes Fungsi Ginjal (Creatinine/Urea)', 'done' => true],
-                ['label' => 'Tes Gula Darah (GDS)', 'done' => true],
-                ['label' => 'Tes Kolesterol Total', 'done' => true],
-                ['label' => 'Elektrokardiogram (EKG)', 'done' => true],
-                ['label' => 'Rontgen Dada (Thoraks)', 'done' => false],
-            ]),
-        ]);
-        UserMedical::create([
-            'user_id'           => $lintang->id,
-            'title'            => 'Medical Check-Up Khusus',
-            'patient_name'     => 'Noor Lintang Bhaskara',
-=======
             'next_checkup_date' => now()->subMonths(6)->toDateString(),
         ]);
         UserMedical::create([
             'user_id'           => $lintang->id,
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
             'checkup_date'      => now()->subMonths(3)->toDateString(),
             'blood_type'        => 'A+',
             'height'            => '168 cm',
@@ -352,34 +299,10 @@ class DatabaseSeeder extends Seeder
             'blood_pressure'    => '122/80 mmHg',
             'allergies'         => 'Debu logam',
             'result'            => 'Fit with Restriction',
-<<<<<<< HEAD
-            'doctor_name'     => 'dr. Budi Hartono, Sp.PD',
-            'doctor_contact' => '0813-4567-8901',
-            'facility_name'   => 'RSGM Tanah Bumbu',
-            'facility_contact'=> '0541-654321',
-            'doctor_notes'     => 'Disarankan menggunakan masker anti-debu saat bekerja di lingkungan workshop.',
-            'next_checkup_date' => now()->addMonths(9)->toDateString(),
-            'checklist_items'   => json_encode([
-                ['label' => 'Pemeriksaan Fisik Umum', 'done' => true],
-                ['label' => 'Tes Alergi Debu Logam', 'done' => true],
-                ['label' => 'Tes Fungsi Paru (Spirometri)', 'done' => true],
-                ['label' => 'Tes Darah Lengkap (CBC)', 'done' => true],
-                ['label' => 'Tes Gula Darah (GDS)', 'done' => true],
-                ['label' => 'Pemeriksaan Saluran Pernapasan', 'done' => true],
-                ['label' => 'Elektrokardiogram (EKG)', 'done' => false],
-                ['label' => 'Konsultasi Spesialis Paru', 'done' => true],
-            ]),
-        ]);
-        UserMedical::create([
-            'user_id'           => $rudi->id,
-            'title'            => 'Medical Check-Up Tahunan 2026',
-            'patient_name'     => 'Rudi Hartono',
-=======
             'next_checkup_date' => now()->addMonths(9)->toDateString(),
         ]);
         UserMedical::create([
             'user_id'           => $rudi->id,
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
             'checkup_date'      => now()->subMonths(5)->toDateString(),
             'blood_type'        => 'B+',
             'height'            => '175 cm',
@@ -387,34 +310,10 @@ class DatabaseSeeder extends Seeder
             'blood_pressure'    => '130/85 mmHg',
             'allergies'         => 'Tidak ada',
             'result'            => 'Fit to Work',
-<<<<<<< HEAD
-            'doctor_name'     => 'dr. Siti Rahayu, Sp.KO',
-            'doctor_contact' => '0814-5678-9012',
-            'facility_name'   => 'Klinik Pratama Bukit Energi',
-            'facility_contact'=> '0541-123456',
-            'doctor_notes'     => 'Tekanan darah sedikit tinggi, pantau secara berkala.',
-            'next_checkup_date' => now()->addMonths(7)->toDateString(),
-            'checklist_items'   => json_encode([
-                ['label' => 'Pemeriksaan Fisik Umum', 'done' => true],
-                ['label' => 'Tes Darah Lengkap (CBC)', 'done' => true],
-                ['label' => 'Tes Fungsi Jantung (EKG)', 'done' => true],
-                ['label' => 'Tes Gula Darah (GDS Puasa)', 'done' => true],
-                ['label' => 'Tes Kolesterol & Trigliserida', 'done' => true],
-                ['label' => 'Pemeriksaan Tekanan Darah', 'done' => true],
-                ['label' => 'Tes Fungsi Ginjal', 'done' => false],
-                ['label' => 'Konsultasi Gizi', 'done' => true],
-            ]),
-        ]);
-        UserMedical::create([
-            'user_id'           => $admin->id,
-            'title'            => 'Medical Check-Up Tahunan 2026',
-            'patient_name'     => 'Budi Santoso',
-=======
             'next_checkup_date' => now()->addMonths(7)->toDateString(),
         ]);
         UserMedical::create([
             'user_id'           => $admin->id,
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
             'checkup_date'      => now()->subMonths(4)->toDateString(),
             'blood_type'        => 'AB+',
             'height'            => '170 cm',
@@ -422,34 +321,10 @@ class DatabaseSeeder extends Seeder
             'blood_pressure'    => '115/75 mmHg',
             'allergies'         => 'Tidak ada',
             'result'            => 'Fit to Work',
-<<<<<<< HEAD
-            'doctor_name'     => 'dr. Hendra Wijaya, Sp.B',
-            'doctor_contact' => '0815-6789-0123',
-            'facility_name'   => 'RSUD Tanah Bumbu',
-            'facility_contact'=> '0541-111222',
-            'doctor_notes'     => 'Kondisi kesehatan sangat baik. Jaga pola makan dan olahraga.',
-            'next_checkup_date' => now()->addMonths(8)->toDateString(),
-            'checklist_items'   => json_encode([
-                ['label' => 'Pemeriksaan Fisik Umum', 'done' => true],
-                ['label' => 'Tes Darah Lengkap (CBC)', 'done' => true],
-                ['label' => 'Tes Fungsi Hati (SGOT/SGPT)', 'done' => true],
-                ['label' => 'Tes Fungsi Ginjal (Creatinine/Urea)', 'done' => true],
-                ['label' => 'Tes Gula Darah (GDS Puasa)', 'done' => true],
-                ['label' => 'Profil Lipid Lengkap', 'done' => true],
-                ['label' => 'Elektrokardiogram (EKG)', 'done' => true],
-                ['label' => 'Rontgen Dada (Thoraks)', 'done' => true],
-            ]),
-        ]);
-        UserMedical::create([
-            'user_id'           => $putri->id,
-            'title'            => 'Medical Check-Up Tahunan 2026',
-            'patient_name'     => 'Putri Handayani',
-=======
             'next_checkup_date' => now()->addMonths(8)->toDateString(),
         ]);
         UserMedical::create([
             'user_id'           => $putri->id,
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
             'checkup_date'      => now()->subMonths(2)->toDateString(),
             'blood_type'        => 'A-',
             'height'            => '160 cm',
@@ -457,26 +332,7 @@ class DatabaseSeeder extends Seeder
             'blood_pressure'    => '110/70 mmHg',
             'allergies'         => 'Polutan kimia',
             'result'            => 'Fit to Work',
-<<<<<<< HEAD
-            'doctor_name'     => 'dr. Maya Permata, Sp.KO',
-            'doctor_contact' => '0816-7890-1234',
-            'facility_name'   => 'Klinik Pratama Bukit Energi',
-            'facility_contact'=> '0541-123456',
-            'doctor_notes'     => 'Hindari paparan bahan kimia langsung. Gunakan APD sesuai standar.',
             'next_checkup_date' => now()->addMonths(10)->toDateString(),
-            'checklist_items'   => json_encode([
-                ['label' => 'Pemeriksaan Fisik Umum', 'done' => true],
-                ['label' => 'Tes Alergi Polutan Kimia', 'done' => true],
-                ['label' => 'Tes Darah Lengkap (CBC)', 'done' => true],
-                ['label' => 'Tes Fungsi Hati (SGOT/SGPT)', 'done' => true],
-                ['label' => 'Tes Gula Darah (GDS)', 'done' => true],
-                ['label' => 'Pemeriksaan Saluran Pernapasan', 'done' => true],
-                ['label' => 'Elektrokardiogram (EKG)', 'done' => true],
-                ['label' => 'Konsultasi Spesialis Kulit', 'done' => false],
-            ]),
-=======
-            'next_checkup_date' => now()->addMonths(10)->toDateString(),
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
         ]);
 
         // ══════════════════════════════════════════════════════════════════
