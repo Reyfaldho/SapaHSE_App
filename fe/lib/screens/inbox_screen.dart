@@ -81,11 +81,11 @@ class _InboxScreenState extends State<InboxScreen>
   _SubFilter _activeFilter = _SubFilter.all;
 =======
 class _InboxScreenState extends State<InboxScreen> {
-  _InboxTab _activeTab = _InboxTab.all;
+  _InboxTab activeTab = _InboxTab.all;
 >>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
   bool _isSearching = false;
-  final TextEditingController _searchController = TextEditingController();
-  String _searchQuery = '';
+  final TextEditingController searchController = TextEditingController();
+  String searchQuery = '';
 
 <<<<<<< HEAD
   @override
@@ -102,13 +102,13 @@ class _InboxScreenState extends State<InboxScreen> {
   }
 
   // Track read IDs (in-memory)
-  final Set<String> _readReportIds = {};
-  final Set<String> _readAnnouncementIds = {};
+  final Set<String> readReportIds = {};
+  final Set<String> readAnnouncementIds = {};
 
   // ── Filtered reports ───────────────────────────────────────────────────────
   List<Report> get _baseReports {
     if (_activeFilter == _SubFilter.unread) {
-      return dummyReports.where((r) => !_readReportIds.contains(r.id)).toList();
+      return dummyReports.where((r) => !readReportIds.contains(r.id)).toList();
     }
     return dummyReports;
   }
@@ -117,37 +117,37 @@ class _InboxScreenState extends State<InboxScreen> {
     final base = _baseReports;
 =======
   // Track read report IDs (in-memory)
-  final Set<String> _readReportIds = {};
-  final Set<String> _readAnnouncementIds = {};
+  final Set<String> readReportIds = {};
+  final Set<String> readAnnouncementIds = {};
 
   // ── Filtered lists per tab ─────────────────────────────────────────────────
-  List<Report> get _allReports => dummyReports;
+  List<Report> get allReports => dummyReports;
 
-  List<Report> get _personalReports =>
+  List<Report> get personalReports =>
       dummyReports.where((r) => r.reportedBy == _currentUser).toList();
 
-  List<Report> get _unreadReports =>
-      dummyReports.where((r) => !_readReportIds.contains(r.id)).toList();
+  List<Report> get unreadReports =>
+      dummyReports.where((r) => !readReportIds.contains(r.id)).toList();
 
   // Active list based on tab + search
   List<Report> get _activeReports {
     List<Report> base;
-    switch (_activeTab) {
+    switch (activeTab) {
       case _InboxTab.all:
-        base = _allReports;
+        base = allReports;
         break;
       case _InboxTab.personal:
-        base = _personalReports;
+        base = personalReports;
         break;
       case _InboxTab.unread:
-        base = _unreadReports;
+        base = unreadReports;
         break;
       default:
         base = [];
     }
 >>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
-    if (_searchQuery.isEmpty) return base;
-    final q = _searchQuery.toLowerCase();
+    if (searchQuery.isEmpty) return base;
+    final q = searchQuery.toLowerCase();
     return base.where((r) =>
         r.title.toLowerCase().contains(q) ||
         r.reportedBy.toLowerCase().contains(q) ||
@@ -159,7 +159,7 @@ class _InboxScreenState extends State<InboxScreen> {
   List<Announcement> get _baseAnnouncements {
     if (_activeFilter == _SubFilter.unread) {
       return dummyAnnouncements
-          .where((a) => !_readAnnouncementIds.contains(a.id))
+          .where((a) => !readAnnouncementIds.contains(a.id))
           .toList();
     }
     return dummyAnnouncements;
@@ -167,12 +167,12 @@ class _InboxScreenState extends State<InboxScreen> {
 
   List<Announcement> get _activeAnnouncements {
     final base = _baseAnnouncements;
-    if (_searchQuery.isEmpty) return base;
-    final q = _searchQuery.toLowerCase();
+    if (searchQuery.isEmpty) return base;
+    final q = searchQuery.toLowerCase();
     return base.where((a) =>
 =======
   List<Announcement> get _activeAnnouncements {
-    if (_activeTab != _InboxTab.announcement) return [];
+    if (activeTab != _InboxTab.announcement) return [];
     if (_searchQuery.isEmpty) return dummyAnnouncements;
     final q = _searchQuery.toLowerCase();
     return dummyAnnouncements.where((a) =>
@@ -184,44 +184,44 @@ class _InboxScreenState extends State<InboxScreen> {
 
   // ── Badge counts ───────────────────────────────────────────────────────────
   int get _unreadReportCount =>
-      dummyReports.where((r) => !_readReportIds.contains(r.id)).length;
+      dummyReports.where((r) => !readReportIds.contains(r.id)).length;
 
-  int get _unreadAnnouncementCount =>
-      dummyAnnouncements.where((a) => !_readAnnouncementIds.contains(a.id)).length;
+  int get unreadAnnouncementCount =>
+      dummyAnnouncements.where((a) => !readAnnouncementIds.contains(a.id)).length;
 
 <<<<<<< HEAD
   int get _activeUnreadCount {
     if (!mounted) return 0;
     return _mainTabController.index == 0
         ? _unreadReportCount
-        : _unreadAnnouncementCount;
+        : unreadAnnouncementCount;
   }
 
   @override
   void dispose() {
-    _searchController.dispose();
+    searchController.dispose();
     _mainTabController.dispose();
 =======
   @override
   void dispose() {
-    _searchController.dispose();
+    searchController.dispose();
 >>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
     super.dispose();
   }
 
-  void _markReportRead(String id) {
-    if (!_readReportIds.contains(id)) {
-      setState(() => _readReportIds.add(id));
+  void markReportRead(String id) {
+    if (!readReportIds.contains(id)) {
+      setState(() => readReportIds.add(id));
     }
   }
 
-  void _markAnnouncementRead(String id) {
-    if (!_readAnnouncementIds.contains(id)) {
-      setState(() => _readAnnouncementIds.add(id));
+  void markAnnouncementRead(String id) {
+    if (!readAnnouncementIds.contains(id)) {
+      setState(() => readAnnouncementIds.add(id));
     }
   }
 
-  String _formatDate(DateTime dt) {
+  String formatDate(DateTime dt) {
     final months = [
       'Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun',
       'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des',
@@ -234,7 +234,7 @@ class _InboxScreenState extends State<InboxScreen> {
     return '${dt.day} ${months[dt.month - 1]} ${dt.year}';
   }
 
-  String _levelResiko(ReportSeverity s) {
+  String levelResiko(ReportSeverity s) {
     switch (s) {
       case ReportSeverity.low:    return 'P3 - Low';
       case ReportSeverity.medium: return 'P2 - Medium';
@@ -242,7 +242,7 @@ class _InboxScreenState extends State<InboxScreen> {
     }
   }
 
-  Color _statusColor(ReportStatus s) {
+  Color statusColor(ReportStatus s) {
     switch (s) {
 <<<<<<< HEAD
       case ReportStatus.open:       return const Color(0xFF2196F3); // Biru
@@ -256,7 +256,7 @@ class _InboxScreenState extends State<InboxScreen> {
     }
   }
 
-  String _statusLabel(ReportStatus s) {
+  String statusLabel(ReportStatus s) {
     switch (s) {
       case ReportStatus.open:       return 'Open';
       case ReportStatus.inProgress: return 'In Progress';
@@ -548,7 +548,7 @@ class _InboxScreenState extends State<InboxScreen> {
   }
 
 <<<<<<< HEAD
-  Widget _buildListTab(bool isAnnouncement) {
+  Widget buildListTab(bool isAnnouncement) {
     final list = isAnnouncement ? _activeAnnouncements : _activeReports;
     if (list.isEmpty) {
       return Center(
@@ -578,24 +578,24 @@ class _InboxScreenState extends State<InboxScreen> {
           final ann = list[i] as Announcement;
           return _AnnouncementCard(
             announcement: ann,
-            isRead: _readAnnouncementIds.contains(ann.id),
-            formatDate: _formatDate,
+            isRead: readAnnouncementIds.contains(ann.id),
+            formatDate: formatDate,
             onTap: () {
-              _markAnnouncementRead(ann.id);
-              _showAnnouncementDetail(context, ann);
+              markAnnouncementRead(ann.id);
+              showAnnouncementDetail(context, ann);
             },
           );
         } else {
           final r = list[i] as Report;
           return _InboxCard(
             report: r,
-            isRead: _readReportIds.contains(r.id),
-            formatDate: _formatDate,
-            levelResiko: _levelResiko,
-            statusColor: _statusColor,
-            statusLabel: _statusLabel,
+            isRead: readReportIds.contains(r.id),
+            formatDate: formatDate,
+            levelResiko: levelResiko,
+            statusColor: statusColor,
+            statusLabel: statusLabel,
             onDetail: () {
-              _markReportRead(r.id);
+              markReportRead(r.id);
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (_) => ReportDetailScreen(report: r)),
@@ -609,7 +609,7 @@ class _InboxScreenState extends State<InboxScreen> {
 
 =======
 >>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
-  void _showAnnouncementDetail(BuildContext context, Announcement ann) {
+  void showAnnouncementDetail(BuildContext context, Announcement ann) {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,

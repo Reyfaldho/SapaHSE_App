@@ -22,16 +22,16 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final PageController _pageController = PageController();
-  int _currentPage = 0;
+  final int _currentPage = 0;
   Timer? _carouselTimer;
 
 <<<<<<< HEAD
-  bool _isSearching = false;
-  String _searchQuery = '';
+  bool final _isSearching = false;
+  final String _searchQuery = '';
   final TextEditingController _searchController = TextEditingController();
 
   String _selectedType = 'All Report';
-  bool _showOpenInProgress = false;
+  final bool _showOpenInProgress = false;
 
   int _displayedCount = 5;
   bool _isLoadingMore = false;
@@ -46,7 +46,7 @@ class _HomeScreenState extends State<HomeScreen> {
     'All Report',
 =======
   String _selectedType = 'All Types';
-  bool _showOpenInProgress = false;
+  final bool _showOpenInProgress = false;
 
   // ── Carousel items with real image URLs ──────────────────────────────────
   final List<Map<String, dynamic>> _carouselItems = [
@@ -394,7 +394,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   // ── CAROUSEL ──────────────────────────────────────────────────────────────
-  Widget _buildCarousel() {
+  Widget buildCarousel() {
     return SizedBox(
 <<<<<<< HEAD
       height: 240,
@@ -667,7 +667,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   // ── FILTERS ───────────────────────────────────────────────────────────────
-  Widget _buildFilters() {
+  Widget buildFilters() {
     return Container(
       color: Colors.white,
       padding: const EdgeInsets.fromLTRB(16, 14, 16, 14),
@@ -1110,7 +1110,7 @@ class _ReportCard extends StatelessWidget {
       ),
 <<<<<<< HEAD
     ),
-  );
+  )
 }
 }
 =======

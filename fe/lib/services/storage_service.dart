@@ -53,7 +53,7 @@ class StorageService {
 >>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
   }
 
-  static Future<String?> getToken() async {
+  Future<String?> getToken() async {
     final prefs = await _getPrefs();
 <<<<<<< HEAD
     final token = prefs.getString(_keyToken);
@@ -75,7 +75,7 @@ class StorageService {
     return token;
   }
 
-  static Future<void> removeToken() async {
+  Future<void> removeToken() async {
     final prefs = await _getPrefs();
     await prefs.remove(_keyToken);
     await prefs.remove(_keyExpiry);
@@ -83,25 +83,25 @@ class StorageService {
   }
 
   // ── User ──────────────────────────────────────────────────────────────────
-  static Future<void> saveUser(Map<String, dynamic> user) async {
+  Future<void> saveUser(Map<String, dynamic> user) async {
     final prefs = await _getPrefs();
     await prefs.setString(_keyUser, jsonEncode(user));
   }
 
-  static Future<Map<String, dynamic>?> getUser() async {
+  Future<Map<String, dynamic>?> getUser() async {
     final prefs = await _getPrefs();
     final raw = prefs.getString(_keyUser);
     if (raw == null) return null;
     return jsonDecode(raw) as Map<String, dynamic>;
   }
 
-  static Future<void> removeUser() async {
+  Future<void> removeUser() async {
     final prefs = await _getPrefs();
     await prefs.remove(_keyUser);
   }
 
   // ── Clear semua ───────────────────────────────────────────────────────────
-  static Future<void> clear() async {
+  Future<void> clear() async {
     final prefs = await _getPrefs();
     await prefs.remove(_keyToken);
     await prefs.remove(_keyUser);
@@ -110,13 +110,13 @@ class StorageService {
   }
 
   // ── Cek login + validasi expiry sekaligus ─────────────────────────────────
-  static Future<bool> isLoggedIn() async {
+  Future<bool> isLoggedIn() async {
     final token = await getToken(); // getToken() sudah handle expiry check
     return token != null;
   }
 
   // ── Sisa waktu sesi (opsional, untuk ditampilkan di UI) ───────────────────
-  static Future<Duration?> getRemainingSession() async {
+  Future<Duration?> getRemainingSession() async {
 <<<<<<< HEAD
     final prefs = await _getPrefs();
     final expiry = prefs.getString(_keyExpiry);

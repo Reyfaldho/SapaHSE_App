@@ -154,7 +154,7 @@ class ProfileResult {
   final ProfileData? data;
   final String? errorMessage;
 
-  ProfileResult._({required this.success, this.data, this.errorMessage});
+  ProfileResult._({required this.success, this.data});
 
   factory ProfileResult.success(ProfileData data) =>
       ProfileResult._(success: true, data: data);

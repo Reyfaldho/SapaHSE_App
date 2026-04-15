@@ -108,7 +108,7 @@ static Future<AuthResult> register({
 }
 
   // ── Logout ────────────────────────────────────────────────────────────────
-  static Future<void> logout() async {
+  Future<void> logout() async {
     try {
       await ApiService.post('/logout', {}).timeout(const Duration(seconds: 5));
     } catch (_) {}
@@ -116,7 +116,7 @@ static Future<AuthResult> register({
   }
 
   // ── Get current user from local storage ───────────────────────────────────
-  static Future<UserModel?> getCurrentUser() async {
+  Future<UserModel?> getCurrentUser() async {
     final data = await StorageService.getUser();
     if (data == null) return null;
     return UserModel.fromJson(data);

@@ -84,7 +84,7 @@ class _ReportDetailScreenState extends State<ReportDetailScreen> {
     }
   }
 
-  String _formatDate(DateTime dt) {
+  String formatDate(DateTime dt) {
     final months = [
 >>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
       'Jan',
@@ -105,7 +105,7 @@ class _ReportDetailScreenState extends State<ReportDetailScreen> {
         '${dt.hour.toString().padLeft(2, '0')}:${dt.minute.toString().padLeft(2, '0')}';
   }
 
-  String _formatDateShort(DateTime dt) {
+  String formatDateShort(DateTime dt) {
     final m = [
       'Jan',
       'Feb',
@@ -126,7 +126,7 @@ class _ReportDetailScreenState extends State<ReportDetailScreen> {
   // ── Update Status logic replaced by UpdateStatusPage ───────────────────────
 
   // ── Image Preview ──────────────────────────────────────────────────────────
-  void _showImagePreview(BuildContext context) {
+  void showImagePreview(BuildContext context) {
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -168,7 +168,7 @@ class _ReportDetailScreenState extends State<ReportDetailScreen> {
     return '${dt.day} ${months[dt.month - 1]} ${dt.year}, ${dt.hour.toString().padLeft(2, '0')}:${dt.minute.toString().padLeft(2, '0')}';
   }
 
-  void _updateStatus(ReportStatus newStatus) {
+  void updateStatus(ReportStatus newStatus) {
     updateReportStatus(_report.id, newStatus);
     setState(() {
       _report = dummyReports.firstWhere((r) => r.id == _report.id);
@@ -209,7 +209,7 @@ class _ReportDetailScreenState extends State<ReportDetailScreen> {
               height: 220,
               child: Stack(fit: StackFit.expand, children: [
                 GestureDetector(
-                  onTap: () => _showImagePreview(context),
+                  onTap: () => showImagePreview(context),
                   child: Hero(
                     tag: 'report_image_${_report.id}',
                     child: CachedNetworkImage(
@@ -251,17 +251,17 @@ class _ReportDetailScreenState extends State<ReportDetailScreen> {
                   bottom: 12,
                   left: 16,
                   child: Row(children: [
-                    _badge(_report.severity.label,
+                    badge(_report.severity.label,
                         _severityColor(_report.severity)),
                     const SizedBox(width: 8),
-                    _badge(_report.status.label, _statusColor(_report.status)),
+                    badge(_report.status.label, _statusColor(_report.status)),
                   ]),
                 ),
               ]),
             ),
 
             // ── Info card ──────────────────────────────────────────────────
-            _card(
+            card(
               margin: const EdgeInsets.fromLTRB(16, 16, 16, 0),
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -294,7 +294,7 @@ class _ReportDetailScreenState extends State<ReportDetailScreen> {
                     _DetailRow(
                         icon: Icons.access_time,
                         label: 'Waktu Laporan',
-                        value: _formatDate(_report.createdAt)),
+                        value: formatDate(_report.createdAt)),
                     const SizedBox(height: 12),
                     _DetailRow(
                         icon: Icons.category_outlined,
@@ -304,7 +304,7 @@ class _ReportDetailScreenState extends State<ReportDetailScreen> {
             ),
 
             // ── Progress Timeline ──────────────────────────────────────────
-            _card(
+            card(
               margin: const EdgeInsets.fromLTRB(16, 12, 16, 0),
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -334,12 +334,12 @@ class _ReportDetailScreenState extends State<ReportDetailScreen> {
                     const SizedBox(height: 6),
 
                     // Step indicator bar
-                    _buildStepBar(),
+                    buildStepBar(),
 
                     const SizedBox(height: 20),
 
                     // Timeline events (grouped by parent status)
-                    ..._buildGroupedTimeline(timeline),
+                    ...buildGroupedTimeline(timeline),
                   ]),
             ),
 
@@ -380,7 +380,7 @@ class _ReportDetailScreenState extends State<ReportDetailScreen> {
   }
 
   // ── Build grouped timeline ──────────────────────────────────────────────────
-  List<Widget> _buildGroupedTimeline(List<TimelineEvent> timeline) {
+  List<Widget> buildGroupedTimeline(List<TimelineEvent> timeline) {
     final groups = <ReportStatus, List<TimelineEvent>>{};
     for (final e in timeline) {
       groups.putIfAbsent(e.status, () => []).add(e);
@@ -442,8 +442,8 @@ class _ReportDetailScreenState extends State<ReportDetailScreen> {
             isCurrent: isVeryLast,
             statusColor: statusColor,
             statusIcon: _statusIcon(status),
-            formatDate: _formatDate,
-            formatShort: _formatDateShort,
+            formatDate: formatDate,
+            formatShort: formatDateShort,
           ),
         );
       }
@@ -455,7 +455,7 @@ class _ReportDetailScreenState extends State<ReportDetailScreen> {
   }
 
   // ── Step bar (Open → In Progress → Closed) ─────────────────────────────────
-  Widget _buildStepBar() {
+  Widget buildStepBar() {
     final steps = [
       ReportStatus.open,
       ReportStatus.inProgress,
@@ -535,7 +535,7 @@ class _ReportDetailScreenState extends State<ReportDetailScreen> {
   }
 
   // ── Helpers ────────────────────────────────────────────────────────────────
-  Widget _card({required Widget child, EdgeInsets margin = EdgeInsets.zero}) =>
+  Widget card({required Widget child, EdgeInsets margin = EdgeInsets.zero}) =>
       Container(
         margin: margin,
         padding: const EdgeInsets.all(16),
@@ -552,7 +552,7 @@ class _ReportDetailScreenState extends State<ReportDetailScreen> {
         child: child,
       );
 
-  Widget _badge(String label, Color color) => Container(
+  Widget badge(String label, Color color) => Container(
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
         decoration: BoxDecoration(
             color: color, borderRadius: BorderRadius.circular(12)),
@@ -810,7 +810,7 @@ class _TimelineItem extends StatelessWidget {
                     right: 0,
                     child: Container(
                       height: 60,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         gradient: LinearGradient(
                           begin: Alignment.bottomCenter,
                           end: Alignment.topCenter,
@@ -959,7 +959,7 @@ class _TimelineItem extends StatelessWidget {
         ),
 >>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
       ),
-    );
+    )
   }
 }
 

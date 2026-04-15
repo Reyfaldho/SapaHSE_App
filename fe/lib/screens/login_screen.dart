@@ -51,7 +51,7 @@ class _LoginScreenState extends State<LoginScreen>
 =======
     _nikCtrl.dispose();
 >>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
-    _passCtrl.dispose();
+    passCtrl.dispose();
     _animCtrl.dispose();
     super.dispose();
   }
@@ -263,7 +263,8 @@ class _LoginScreenState extends State<LoginScreen>
                                 onPressed: () => setState(
                                     () => _obscurePass = !_obscurePass),
                               ),
-                            ),
+                            )
+return null;,
                           ),
 
                           const SizedBox(height: 12),

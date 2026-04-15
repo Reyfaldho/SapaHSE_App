@@ -132,12 +132,12 @@ class _QrScanScreenState extends State<QrScanScreen>
 
           // ── Scan instruction ───────────────────────────────────────────
           if (!_hasScanned)
-            Positioned(
+            const Positioned(
               bottom: 180,
               left: 0,
               right: 0,
               child: Column(
-                children: const [
+                children: [
                   Icon(Icons.qr_code_scanner, color: Colors.white54, size: 28),
                   SizedBox(height: 10),
                   Text(

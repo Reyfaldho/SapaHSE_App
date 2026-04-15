@@ -32,14 +32,14 @@ class _ProfileScreenState extends State<ProfileScreen>
   XFile? _avatarFile;
 
 
-  bool _isSearching = false;
+  final bool _isSearching = false;
   final TextEditingController _searchController = TextEditingController();
   
 =======
   File? _avatarFile;
 
   UserModel? _user;
-  bool _loadingUser = true;
+  final bool _loadingUser = true;
 
 >>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
   @override
@@ -61,7 +61,8 @@ class _ProfileScreenState extends State<ProfileScreen>
   }
 
 =======
-    super.dispose();
+    super.@override
+  dispose();
   }
 
   // ── Load user: try local cache first, then API ────────────────────────────
@@ -732,12 +733,12 @@ class _ProfileTabState extends State<_ProfileTab> {
             ),
             child: SizedBox(
               key: ValueKey(_selectedSubTab),
-              child: _buildSubTabContent(),
+              child: buildSubTabContent(),
             ),
           ),
 =======
           // ── Sub-tab content ────────────────────────────────────────────
-          _buildSubTabContent(),
+          buildSubTabContent(),
 >>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
 
           const SizedBox(height: 80),
@@ -746,7 +747,7 @@ class _ProfileTabState extends State<_ProfileTab> {
     );
   }
 
-  Widget _buildSubTabContent() {
+  Widget buildSubTabContent() {
     switch (_selectedSubTab) {
       case 0:
         return _BiodataContent(
@@ -765,7 +766,7 @@ class _ProfileTabState extends State<_ProfileTab> {
 =======
           user: widget.user,
           onUserUpdated: widget.onUserUpdated,
-        );
+        ) {}
       case 1:
         return const _LicenseContent();
       case 2:

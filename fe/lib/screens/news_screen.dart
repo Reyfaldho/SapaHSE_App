@@ -21,8 +21,8 @@ class _NewsScreenState extends State<NewsScreen> {
   Timer? _carouselTimer;
 <<<<<<< HEAD
 
-  bool _isSearching = false;
-  String _searchQuery = '';
+  bool final _isSearching = false;
+  final String _searchQuery = '';
   final TextEditingController _searchController = TextEditingController();
 
 =======

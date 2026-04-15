@@ -12,7 +12,6 @@ class RegisterScreen extends StatefulWidget {
 
 class _RegisterScreenState extends State<RegisterScreen>
     with SingleTickerProviderStateMixin {
-<<<<<<< HEAD
   final _formKey = GlobalKey<FormState>();
   final _namaCtrl = TextEditingController();
   final _nikCtrl = TextEditingController();
@@ -34,21 +33,6 @@ class _RegisterScreenState extends State<RegisterScreen>
     'PT Bukit Baiduri Energi',
     'PT. Khotai Makmur Insan Abadi',
   ];
-=======
-  final _formKey       = GlobalKey<FormState>();
-  final _namaCtrl      = TextEditingController();
-  final _nikCtrl       = TextEditingController();
-  final _emailCtrl     = TextEditingController();
-  final _teleponCtrl   = TextEditingController();
-  final _passCtrl      = TextEditingController();
-  final _confirmPassCtrl = TextEditingController();
-
-  String _selectedDivisi = 'Departemen HSE';
-  bool _obscurePass    = true;
-  bool _obscureConfirm = true;
-  bool _isLoading      = false;
-  bool _agreeTerms     = false;
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
 
   // Step: 0 = data diri, 1 = akun
   int _currentStep = 0;
@@ -65,24 +49,15 @@ class _RegisterScreenState extends State<RegisterScreen>
   ];
 
   late AnimationController _animCtrl;
-<<<<<<< HEAD
   late Animation<double> _fadeAnim;
-=======
-  late Animation<double>   _fadeAnim;
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
 
   @override
   void initState() {
     super.initState();
     _animCtrl = AnimationController(
         vsync: this, duration: const Duration(milliseconds: 500));
-<<<<<<< HEAD
     _fadeAnim =
         Tween<double>(begin: 0, end: 1).animate(CurvedAnimation(parent: _animCtrl, curve: Curves.easeOut));
-=======
-    _fadeAnim = Tween<double>(begin: 0, end: 1).animate(
-        CurvedAnimation(parent: _animCtrl, curve: Curves.easeOut));
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
     _animCtrl.forward();
   }
 
@@ -90,22 +65,16 @@ class _RegisterScreenState extends State<RegisterScreen>
   void dispose() {
     _namaCtrl.dispose();
     _nikCtrl.dispose();
-<<<<<<< HEAD
     _emailPribadiCtrl.dispose();
     _emailKantorCtrl.dispose();
     _teleponCtrl.dispose();
     _jabatanCtrl.dispose();
-=======
-    _emailCtrl.dispose();
-    _teleponCtrl.dispose();
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
     _passCtrl.dispose();
     _confirmPassCtrl.dispose();
     _animCtrl.dispose();
     super.dispose();
   }
 
-<<<<<<< HEAD
   void _nextStep() {
     // Validate step 0 fields
     if (_currentStep == 0) {
@@ -133,18 +102,6 @@ class _RegisterScreenState extends State<RegisterScreen>
             margin: const EdgeInsets.all(16),
           ),
         );
-=======
-  // ── Step 1 → Step 2 ───────────────────────────────────────────────────────
-  void _nextStep() {
-    if (_currentStep == 0) {
-      if (_namaCtrl.text.isEmpty || _nikCtrl.text.isEmpty ||
-          _emailCtrl.text.isEmpty || _teleponCtrl.text.isEmpty) {
-        _showSnackbar('Harap lengkapi semua field', Colors.orange);
-        return;
-      }
-      if (_nikCtrl.text.length < 10) {
-        _showSnackbar('NIK minimal 10 digit', Colors.orange);
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
         return;
       }
       setState(() => _currentStep = 1);
@@ -159,7 +116,6 @@ class _RegisterScreenState extends State<RegisterScreen>
     _animCtrl.forward();
   }
 
-<<<<<<< HEAD
   Future<void> _register() async {
     if (!_formKey.currentState!.validate()) return;
     if (!_agreeTerms) {
@@ -172,20 +128,11 @@ class _RegisterScreenState extends State<RegisterScreen>
           margin: const EdgeInsets.all(16),
         ),
       );
-=======
-  // ── Register → API ────────────────────────────────────────────────────────
-  Future<void> _register() async {
-    if (!_formKey.currentState!.validate()) return;
-
-    if (!_agreeTerms) {
-      _showSnackbar('Harap setujui syarat & ketentuan', Colors.orange);
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
       return;
     }
 
     setState(() => _isLoading = true);
 
-<<<<<<< HEAD
     try {
       final response = await AuthService.register(
         nik: _nikCtrl.text,
@@ -267,56 +214,6 @@ class _RegisterScreenState extends State<RegisterScreen>
       SnackBar(
         content: Text(message),
         backgroundColor: Colors.red,
-=======
-    final result = await AuthService.register(
-      nik: _nikCtrl.text.trim(),
-      employeeId: null,
-      fullName: _namaCtrl.text.trim(),
-      email: _emailCtrl.text.trim(),
-      password: _passCtrl.text,
-      phoneNumber:
-          _teleponCtrl.text.trim().isEmpty ? null : _teleponCtrl.text.trim(),
-      department: _selectedDivisi,
-    );
-
-    if (!mounted) return;
-
-    if (result.success) {
-        setState(() => _isLoading = false); // ← ADD THIS
-
-      Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute(builder: (_) => const LoginScreen()),
-        (route) => false,
-      );
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: const Row(
-            children: [
-              Icon(Icons.check_circle_outline, color: Colors.white, size: 18),
-              SizedBox(width: 8),
-              Expanded(child: Text('Registrasi berhasil! Silakan login.')),
-            ],
-          ),
-          backgroundColor: const Color(0xFF1A56C4),
-          behavior: SnackBarBehavior.floating,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-          margin: const EdgeInsets.all(16),
-          duration: const Duration(seconds: 3),
-        ),
-      );
-    } else {
-      setState(() => _isLoading = false);
-      _showSnackbar(result.errorMessage ?? 'Registrasi gagal.', Colors.red);
-    }
-  }
-
-  void _showSnackbar(String message, Color color) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(message),
-        backgroundColor: color,
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
         behavior: SnackBarBehavior.floating,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         margin: const EdgeInsets.all(16),
@@ -324,10 +221,6 @@ class _RegisterScreenState extends State<RegisterScreen>
     );
   }
 
-<<<<<<< HEAD
-=======
-  // ── Build ─────────────────────────────────────────────────────────────────
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -341,10 +234,7 @@ class _RegisterScreenState extends State<RegisterScreen>
               padding: const EdgeInsets.fromLTRB(16, 16, 16, 24),
               child: Column(
                 children: [
-<<<<<<< HEAD
                   // Back + Title
-=======
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
                   Row(
                     children: [
                       GestureDetector(
@@ -354,11 +244,7 @@ class _RegisterScreenState extends State<RegisterScreen>
                         child: Container(
                           width: 36, height: 36,
                           decoration: BoxDecoration(
-<<<<<<< HEAD
                             color: Colors.white.withValues(alpha: 0.2),
-=======
-                            color: Colors.white.withOpacity(0.2),
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
                             borderRadius: BorderRadius.circular(8),
                           ),
                           child: const Icon(Icons.arrow_back,
@@ -382,15 +268,7 @@ class _RegisterScreenState extends State<RegisterScreen>
                   // ── Step indicator ─────────────────────────────────────
                   Row(
                     children: [
-<<<<<<< HEAD
                       _StepDot(number: 1, isActive: _currentStep == 0, isDone: _currentStep > 0, label: 'Data Diri'),
-=======
-                      _StepDot(
-                          number: 1,
-                          isActive: _currentStep == 0,
-                          isDone: _currentStep > 0,
-                          label: 'Data Diri'),
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
                       Expanded(
                         child: Container(
                           height: 2,
@@ -399,15 +277,7 @@ class _RegisterScreenState extends State<RegisterScreen>
                               : Colors.white38,
                         ),
                       ),
-<<<<<<< HEAD
                       _StepDot(number: 2, isActive: _currentStep == 1, isDone: false, label: 'Akun'),
-=======
-                      _StepDot(
-                          number: 2,
-                          isActive: _currentStep == 1,
-                          isDone: false,
-                          label: 'Akun'),
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
                     ],
                   ),
                 ],
@@ -431,11 +301,7 @@ class _RegisterScreenState extends State<RegisterScreen>
                             borderRadius: BorderRadius.circular(16),
                             boxShadow: [
                               BoxShadow(
-<<<<<<< HEAD
                                   color: Colors.black.withValues(alpha: 0.06),
-=======
-                                  color: Colors.black.withOpacity(0.06),
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
                                   blurRadius: 12,
                                   offset: const Offset(0, 4)),
                             ],
@@ -447,11 +313,7 @@ class _RegisterScreenState extends State<RegisterScreen>
 
                         const SizedBox(height: 20),
 
-<<<<<<< HEAD
                         // ── Action button ─────────────────────────────────
-=======
-                        // ── Tombol aksi ───────────────────────────────────
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
                         SizedBox(
                           width: double.infinity,
                           height: 50,
@@ -463,11 +325,7 @@ class _RegisterScreenState extends State<RegisterScreen>
                               backgroundColor: const Color(0xFF1A56C4),
                               foregroundColor: Colors.white,
                               disabledBackgroundColor:
-<<<<<<< HEAD
                                   const Color(0xFF1A56C4).withValues(alpha: 0.6),
-=======
-                                  const Color(0xFF1A56C4).withOpacity(0.6),
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(12)),
                               elevation: 0,
@@ -502,11 +360,7 @@ class _RegisterScreenState extends State<RegisterScreen>
 
                         const SizedBox(height: 16),
 
-<<<<<<< HEAD
                         // ── Login link ────────────────────────────────────
-=======
-                        // ── Link login ────────────────────────────────────
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -549,10 +403,7 @@ class _RegisterScreenState extends State<RegisterScreen>
             style: TextStyle(fontSize: 12, color: Colors.grey)),
         const SizedBox(height: 20),
 
-<<<<<<< HEAD
         // Nama Lengkap
-=======
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
         _label('Nama Lengkap *'),
         const SizedBox(height: 6),
         TextFormField(
@@ -564,10 +415,7 @@ class _RegisterScreenState extends State<RegisterScreen>
 
         const SizedBox(height: 16),
 
-<<<<<<< HEAD
         // NIK
-=======
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
         _label('NIK *'),
         const SizedBox(height: 6),
         TextFormField(
@@ -577,24 +425,16 @@ class _RegisterScreenState extends State<RegisterScreen>
             FilteringTextInputFormatter.digitsOnly,
             LengthLimitingTextInputFormatter(16),
           ],
-<<<<<<< HEAD
           decoration: _deco(hint: 'Masukkan NIK (10-16 digit)', icon: Icons.badge_outlined),
           validator: (v) {
             if (v!.isEmpty) return 'Wajib diisi';
             if (v.length < 10) return 'NIK minimal 10 digit';
-=======
-          decoration: _deco(hint: 'Masukkan NIK (16 digit)', icon: Icons.badge_outlined),
-          validator: (v) {
-            if (v!.isEmpty) return 'Wajib diisi';
-            if (v.length != 16) return 'NIK harus 16 digit';
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
             return null;
           },
         ),
 
         const SizedBox(height: 16),
 
-<<<<<<< HEAD
         // Email Pribadi
         _label('Email Pribadi *'),
         const SizedBox(height: 6),
@@ -602,14 +442,6 @@ class _RegisterScreenState extends State<RegisterScreen>
           controller: _emailPribadiCtrl,
           keyboardType: TextInputType.emailAddress,
           decoration: _deco(hint: 'Masukkan email pribadi', icon: Icons.email_outlined),
-=======
-        _label('Email *'),
-        const SizedBox(height: 6),
-        TextFormField(
-          controller: _emailCtrl,
-          keyboardType: TextInputType.emailAddress,
-          decoration: _deco(hint: 'Masukkan email', icon: Icons.email_outlined),
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
           validator: (v) {
             if (v!.isEmpty) return 'Wajib diisi';
             if (!v.contains('@') || !v.contains('.')) return 'Format email tidak valid';
@@ -619,7 +451,6 @@ class _RegisterScreenState extends State<RegisterScreen>
 
         const SizedBox(height: 16),
 
-<<<<<<< HEAD
         // Email Kantor
         _label('Email Kantor (Opsional)'),
         const SizedBox(height: 6),
@@ -666,8 +497,6 @@ class _RegisterScreenState extends State<RegisterScreen>
         const SizedBox(height: 16),
 
         // Nomor Telepon
-=======
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
         _label('Nomor Telepon *'),
         const SizedBox(height: 6),
         TextFormField(
@@ -675,29 +504,19 @@ class _RegisterScreenState extends State<RegisterScreen>
           keyboardType: TextInputType.phone,
           inputFormatters: [
             FilteringTextInputFormatter.digitsOnly,
-<<<<<<< HEAD
-            LengthLimitingTextInputFormatter(13)
-            ],
-          decoration: _deco(hint: 'Contoh: 081234567890', icon: Icons.phone_outlined),
-          validator: (v) {
-            if (v!.isEmpty) return 'Wajib diisi';
-            if (v.length < 10) return 'Nomor telepon tidak valid';
-=======
             LengthLimitingTextInputFormatter(13),
           ],
           decoration: _deco(hint: 'Contoh: 081234567890', icon: Icons.phone_outlined),
           validator: (v) {
             if (v!.isEmpty) return 'Wajib diisi';
-            if (v.length < 12) return 'Nomor telepon tidak valid';
+            if (v.length < 10) return 'Nomor telepon tidak valid';
             if (v.length > 13) return 'Nomor telepon tidak valid';
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
             return null;
           },
         ),
 
         const SizedBox(height: 16),
 
-<<<<<<< HEAD
         // Jabatan
         _label('Jabatan *'),
         const SizedBox(height: 6),
@@ -712,9 +531,6 @@ class _RegisterScreenState extends State<RegisterScreen>
 
         // Departemen
         _label('Departemen *'),
-=======
-        _label('Jabatan / Divisi *'),
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
         const SizedBox(height: 6),
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 12),
@@ -725,11 +541,7 @@ class _RegisterScreenState extends State<RegisterScreen>
           ),
           child: DropdownButtonHideUnderline(
             child: DropdownButton<String>(
-<<<<<<< HEAD
               value: _selectedDepartemen,
-=======
-              value: _selectedDivisi,
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
               isExpanded: true,
               icon: const Icon(Icons.keyboard_arrow_down, color: Colors.grey),
               style: const TextStyle(fontSize: 14, color: Colors.black87),
@@ -737,11 +549,7 @@ class _RegisterScreenState extends State<RegisterScreen>
                   .map((d) => DropdownMenuItem(value: d, child: Text(d)))
                   .toList(),
               onChanged: (v) {
-<<<<<<< HEAD
                 if (v != null) setState(() => _selectedDepartemen = v);
-=======
-                if (v != null) setState(() => _selectedDivisi = v);
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
               },
             ),
           ),
@@ -762,17 +570,12 @@ class _RegisterScreenState extends State<RegisterScreen>
             style: TextStyle(fontSize: 12, color: Colors.grey)),
         const SizedBox(height: 20),
 
-<<<<<<< HEAD
         // Summary data diri
-=======
-        // Ringkasan data diri
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
         Container(
           padding: const EdgeInsets.all(12),
           decoration: BoxDecoration(
             color: const Color(0xFFEFF4FF),
             borderRadius: BorderRadius.circular(10),
-<<<<<<< HEAD
             border: Border.all(color: const Color(0xFF1A56C4).withValues(alpha: 0.2)),
           ),
           child: Column(
@@ -785,55 +588,27 @@ class _RegisterScreenState extends State<RegisterScreen>
               _SummaryRow(label: 'PT', value: _selectedPerusahaan),
               _SummaryRow(label: 'Jabatan', value: _jabatanCtrl.text),
               _SummaryRow(label: 'Dept', value: _selectedDepartemen),
-=======
-            border: Border.all(
-                color: const Color(0xFF1A56C4).withOpacity(0.2)),
-          ),
-          child: Column(
-            children: [
-              _SummaryRow(label: 'Nama',   value: _namaCtrl.text),
-              _SummaryRow(label: 'NIK',    value: _nikCtrl.text),
-              _SummaryRow(label: 'Email',  value: _emailCtrl.text),
-              _SummaryRow(label: 'Divisi', value: _selectedDivisi),
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
             ],
           ),
         ),
 
         const SizedBox(height: 20),
 
-<<<<<<< HEAD
         // Password
-=======
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
         _label('Password *'),
         const SizedBox(height: 6),
         TextFormField(
           controller: _passCtrl,
           obscureText: _obscurePass,
-<<<<<<< HEAD
-=======
-          onChanged: (_) => setState(() {}),
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
           decoration: _deco(
             hint: 'Minimal 8 karakter',
             icon: Icons.lock_outline,
             suffix: IconButton(
               icon: Icon(
-<<<<<<< HEAD
                 _obscurePass ? Icons.visibility_off_outlined : Icons.visibility_outlined,
                 color: Colors.grey, size: 20,
               ),
               onPressed: () => setState(() => _obscurePass = !_obscurePass),
-=======
-                _obscurePass
-                    ? Icons.visibility_off_outlined
-                    : Icons.visibility_outlined,
-                color: Colors.grey, size: 20,
-              ),
-              onPressed: () =>
-                  setState(() => _obscurePass = !_obscurePass),
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
             ),
           ),
           validator: (v) {
@@ -845,20 +620,12 @@ class _RegisterScreenState extends State<RegisterScreen>
 
         const SizedBox(height: 8),
 
-<<<<<<< HEAD
         // Password strength indicator
         if (_passCtrl.text.isNotEmpty) _buildPasswordStrength(_passCtrl.text),
 
         const SizedBox(height: 16),
 
         // Konfirmasi password
-=======
-        if (_passCtrl.text.isNotEmpty)
-          _buildPasswordStrength(_passCtrl.text),
-
-        const SizedBox(height: 16),
-
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
         _label('Konfirmasi Password *'),
         const SizedBox(height: 6),
         TextFormField(
@@ -870,13 +637,7 @@ class _RegisterScreenState extends State<RegisterScreen>
             icon: Icons.lock_outline,
             suffix: IconButton(
               icon: Icon(
-<<<<<<< HEAD
                 _obscureConfirm ? Icons.visibility_off_outlined : Icons.visibility_outlined,
-=======
-                _obscureConfirm
-                    ? Icons.visibility_off_outlined
-                    : Icons.visibility_outlined,
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
                 color: Colors.grey, size: 20,
               ),
               onPressed: () =>
@@ -904,21 +665,10 @@ class _RegisterScreenState extends State<RegisterScreen>
                 width: 20, height: 20,
                 margin: const EdgeInsets.only(top: 1),
                 decoration: BoxDecoration(
-<<<<<<< HEAD
                   color: _agreeTerms ? const Color(0xFF1A56C4) : Colors.transparent,
                   borderRadius: BorderRadius.circular(5),
                   border: Border.all(
                     color: _agreeTerms ? const Color(0xFF1A56C4) : Colors.grey.shade400,
-=======
-                  color: _agreeTerms
-                      ? const Color(0xFF1A56C4)
-                      : Colors.transparent,
-                  borderRadius: BorderRadius.circular(5),
-                  border: Border.all(
-                    color: _agreeTerms
-                        ? const Color(0xFF1A56C4)
-                        : Colors.grey.shade400,
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
                     width: 2,
                   ),
                 ),
@@ -931,12 +681,7 @@ class _RegisterScreenState extends State<RegisterScreen>
                 child: Text.rich(
                   TextSpan(
                     text: 'Saya menyetujui ',
-<<<<<<< HEAD
                     style: TextStyle(fontSize: 13, color: Colors.black54),
-=======
-                    style:
-                        TextStyle(fontSize: 13, color: Colors.black54),
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
                     children: [
                       TextSpan(
                         text: 'Syarat & Ketentuan',
@@ -971,23 +716,13 @@ class _RegisterScreenState extends State<RegisterScreen>
     if (pass.contains(RegExp(r'[!@#$%^&*]'))) strength++;
 
     final labels = ['Sangat Lemah', 'Lemah', 'Cukup', 'Kuat'];
-<<<<<<< HEAD
     final colors = [Colors.red, Colors.orange, Colors.yellow.shade700, const Color(0xFF1A56C4)];
-=======
-    final colors = [
-      Colors.red,
-      Colors.orange,
-      Colors.yellow.shade700,
-      const Color(0xFF1A56C4)
-    ];
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
     final idx = (strength - 1).clamp(0, 3);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
-<<<<<<< HEAD
           children: List.generate(4, (i) => Expanded(
             child: Container(
               height: 4,
@@ -1002,48 +737,13 @@ class _RegisterScreenState extends State<RegisterScreen>
         const SizedBox(height: 4),
         Text(strength > 0 ? 'Kekuatan: ${labels[idx]}' : '',
             style: TextStyle(fontSize: 11, color: strength > 0 ? colors[idx] : Colors.grey)),
-=======
-          children: List.generate(
-            4,
-            (i) => Expanded(
-              child: Container(
-                height: 4,
-                margin: const EdgeInsets.only(right: 4),
-                decoration: BoxDecoration(
-                  color: i < strength
-                      ? colors[idx]
-                      : Colors.grey.shade200,
-                  borderRadius: BorderRadius.circular(2),
-                ),
-              ),
-            ),
-          ),
-        ),
-        const SizedBox(height: 4),
-        Text(
-          strength > 0 ? 'Kekuatan: ${labels[idx]}' : '',
-          style: TextStyle(
-              fontSize: 11,
-              color: strength > 0 ? colors[idx] : Colors.grey),
-        ),
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
       ],
     );
   }
 
-<<<<<<< HEAD
   Widget _label(String text) => Text(text,
       style: const TextStyle(
           fontSize: 13, fontWeight: FontWeight.w600, color: Colors.black87));
-=======
-  Widget _label(String text) => Text(
-        text,
-        style: const TextStyle(
-            fontSize: 13,
-            fontWeight: FontWeight.w600,
-            color: Colors.black87),
-      );
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
 
   InputDecoration _deco({
     required String hint,
@@ -1055,12 +755,7 @@ class _RegisterScreenState extends State<RegisterScreen>
       hintStyle: const TextStyle(color: Colors.grey, fontSize: 13),
       prefixIcon: Icon(icon, color: Colors.grey, size: 20),
       suffixIcon: suffix,
-<<<<<<< HEAD
       contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 14),
-=======
-      contentPadding:
-          const EdgeInsets.symmetric(horizontal: 14, vertical: 14),
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
       filled: true,
       fillColor: const Color(0xFFF8F8F8),
       border: OutlineInputBorder(
@@ -1071,12 +766,7 @@ class _RegisterScreenState extends State<RegisterScreen>
           borderSide: BorderSide(color: Colors.grey.shade300)),
       focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
-<<<<<<< HEAD
           borderSide: const BorderSide(color: Color(0xFF1A56C4), width: 1.5)),
-=======
-          borderSide:
-              const BorderSide(color: Color(0xFF1A56C4), width: 1.5)),
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
       errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
           borderSide: const BorderSide(color: Colors.red)),
@@ -1114,12 +804,7 @@ class _StepDot extends StatelessWidget {
           ),
           child: Center(
             child: isDone
-<<<<<<< HEAD
                 ? const Icon(Icons.check, color: Color(0xFF1A56C4), size: 18)
-=======
-                ? const Icon(Icons.check,
-                    color: Color(0xFF1A56C4), size: 18)
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
                 : Text(
                     '$number',
                     style: TextStyle(
@@ -1133,24 +818,12 @@ class _StepDot extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 4),
-<<<<<<< HEAD
         Text(label,
             style: TextStyle(
               color: isActive || isDone ? Colors.white : Colors.white54,
               fontSize: 11,
               fontWeight: isActive ? FontWeight.w600 : FontWeight.normal,
             )),
-=======
-        Text(
-          label,
-          style: TextStyle(
-            color: isActive || isDone ? Colors.white : Colors.white54,
-            fontSize: 11,
-            fontWeight:
-                isActive ? FontWeight.w600 : FontWeight.normal,
-          ),
-        ),
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
       ],
     );
   }
@@ -1170,12 +843,7 @@ class _SummaryRow extends StatelessWidget {
             SizedBox(
               width: 56,
               child: Text(label,
-<<<<<<< HEAD
                   style: const TextStyle(fontSize: 12, color: Colors.grey)),
-=======
-                  style:
-                      const TextStyle(fontSize: 12, color: Colors.grey)),
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
             ),
             const Text(': ',
                 style: TextStyle(fontSize: 12, color: Colors.grey)),
