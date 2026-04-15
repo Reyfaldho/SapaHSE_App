@@ -516,7 +516,7 @@ class _ReportCard extends StatelessWidget {
   final Report report;
   final VoidCallback onTap;
 
-  const _ReportCard({super.key, required this.report, required this.onTap});
+  const _ReportCard({required this.report, required this.onTap});
 
   Color get _severityColor {
     switch (report.severity) {
