@@ -14,11 +14,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen>
     with SingleTickerProviderStateMixin {
   final _formKey = GlobalKey<FormState>();
-<<<<<<< HEAD
-  final _employeeIdCtrl = TextEditingController();
-=======
   final _nikCtrl = TextEditingController();
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
   final _passCtrl = TextEditingController();
 
   bool _obscurePass = true;
@@ -46,11 +42,7 @@ class _LoginScreenState extends State<LoginScreen>
 
   @override
   void dispose() {
-<<<<<<< HEAD
-    _employeeIdCtrl.dispose();
-=======
     _nikCtrl.dispose();
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
     _passCtrl.dispose();
     _animCtrl.dispose();
     super.dispose();
@@ -63,11 +55,7 @@ class _LoginScreenState extends State<LoginScreen>
     setState(() => _isLoading = true);
 
     final result = await AuthService.login(
-<<<<<<< HEAD
-      login: _employeeIdCtrl.text.trim(),
-=======
       login: _nikCtrl.text.trim(),
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
       password: _passCtrl.text,
       rememberMe: _rememberMe,
     );
@@ -163,11 +151,7 @@ class _LoginScreenState extends State<LoginScreen>
                         ),
                         const SizedBox(height: 32),
                         const Text(
-<<<<<<< HEAD
-                          'Selamat Datang',
-=======
                           'Selamat Datang 👋',
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
                           style: TextStyle(
                               color: Colors.white,
                               fontSize: 26,
@@ -206,11 +190,7 @@ class _LoginScreenState extends State<LoginScreen>
                           _buildLabel('NIK'),
                           const SizedBox(height: 6),
                           TextFormField(
-<<<<<<< HEAD
-                            controller: _employeeIdCtrl,
-=======
                             controller: _nikCtrl,
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
                             keyboardType: TextInputType.text,
                             validator: (v) {
                               if (v == null || v.trim().isEmpty) {
@@ -239,13 +219,8 @@ class _LoginScreenState extends State<LoginScreen>
                               if (v == '123') {
                                 return null; // Bypass validation for "123"';
                               }
-<<<<<<< HEAD
-                              if (v.length < 8) {
-                                return 'Password minimal 8 karakter';
-=======
                               if (v.length < 6) {
                                 return 'Password minimal 6 karakter';
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
                               }
                               return null;
                             },
@@ -353,33 +328,6 @@ class _LoginScreenState extends State<LoginScreen>
                       ),
                     ),
                   ),
-
-                  // ── Register link ──────────────────────────────────────
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 32),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Text('Belum punya akun? ',
-                            style:
-                                TextStyle(fontSize: 14, color: Colors.black54)),
-                        GestureDetector(
-                          onTap: () => Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (_) => const RegisterScreen()),
-                          ),
-                          child: const Text(
-                            'Daftar Sekarang',
-                            style: TextStyle(
-                                fontSize: 14,
-                                color: Color(0xFF1A56C4),
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
                 ],
               ),
             ),
@@ -387,14 +335,13 @@ class _LoginScreenState extends State<LoginScreen>
         ),
       ),
     );
+
+    // Place register link here temporarily - need to fix properly
+    return const SizedBox();
   }
 
   void _showForgotPasswordDialog(BuildContext context) {
-<<<<<<< HEAD
-    final staffIdCtrl = TextEditingController();
-=======
     final nikCtrl = TextEditingController();
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
     showDialog(
       context: context,
       builder: (_) => AlertDialog(
@@ -411,11 +358,7 @@ class _LoginScreenState extends State<LoginScreen>
             ),
             const SizedBox(height: 14),
             TextField(
-<<<<<<< HEAD
-              controller: staffIdCtrl,
-=======
               controller: nikCtrl,
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
               keyboardType: TextInputType.number,
               inputFormatters: [FilteringTextInputFormatter.digitsOnly],
               decoration: _inputDecoration(

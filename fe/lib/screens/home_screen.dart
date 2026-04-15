@@ -2,16 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'dart:async';
 import '../models/report.dart';
-<<<<<<< HEAD
 import '../data/news_data.dart';
 import 'report_detail_screen.dart';
 import 'news_detail_screen.dart';
 import '../data/report_store.dart';
 import '../widgets/sapa_hse_header.dart';
-=======
-import '../data/dummy_data.dart';
-import 'report_detail_screen.dart';
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -25,7 +20,6 @@ class _HomeScreenState extends State<HomeScreen> {
   int _currentPage = 0;
   Timer? _carouselTimer;
 
-<<<<<<< HEAD
   bool _isSearching = false;
   String _searchQuery = '';
   final TextEditingController _searchController = TextEditingController();
@@ -44,33 +38,6 @@ class _HomeScreenState extends State<HomeScreen> {
   // ── Only Hazard & Inspection ──────────────────────────────────────────────
   final List<String> _reportTypes = [
     'All Report',
-=======
-  String _selectedType = 'All Types';
-  bool _showOpenInProgress = false;
-
-  // ── Carousel items with real image URLs ──────────────────────────────────
-  final List<Map<String, dynamic>> _carouselItems = [
-    {
-      'imageUrl':
-          'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&q=80',
-      'label': 'Area Tambang Sektor A',
-    },
-    {
-      'imageUrl':
-          'https://images.unsplash.com/photo-1611273426858-450d8e3c9fce?w=800&q=80',
-      'label': 'Fasilitas Produksi BBE',
-    },
-    {
-      'imageUrl':
-          'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80',
-      'label': 'Area Operasional BBE',
-    },
-  ];
-
-  // ── Only Hazard & Inspection ──────────────────────────────────────────────
-  final List<String> _reportTypes = [
-    'All Types',
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
     'Hazard',
     'Inspection',
   ];
@@ -79,14 +46,14 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     _startCarousel();
-<<<<<<< HEAD
     _scrollController.addListener(_onScroll);
   }
 
   void _onScroll() {
     if (_scrollController.position.pixels >=
         _scrollController.position.maxScrollExtent - 200) {
-      final filteredCount = _getFilteredReports(ReportStore.instance.reports.value).length;
+      final filteredCount =
+          _getFilteredReports(ReportStore.instance.reports.value).length;
       if (!_isLoadingMore && _displayedCount < filteredCount) {
         setState(() {
           _isLoadingMore = true;
@@ -101,17 +68,12 @@ class _HomeScreenState extends State<HomeScreen> {
         });
       }
     }
-=======
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
   }
 
   void _startCarousel() {
     _carouselTimer = Timer.periodic(const Duration(seconds: 3), (_) {
       if (!mounted) return;
-<<<<<<< HEAD
       if (!_pageController.hasClients) return;
-=======
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
       final next = (_currentPage + 1) % _carouselItems.length;
       _pageController.animateToPage(
         next,
@@ -125,7 +87,6 @@ class _HomeScreenState extends State<HomeScreen> {
   void dispose() {
     _carouselTimer?.cancel();
     _pageController.dispose();
-<<<<<<< HEAD
     _searchController.dispose();
     _scrollController.dispose();
     super.dispose();
@@ -141,24 +102,11 @@ class _HomeScreenState extends State<HomeScreen> {
           r.title.toLowerCase().contains(_searchQuery.toLowerCase()) ||
           r.description.toLowerCase().contains(_searchQuery.toLowerCase());
       return matchType && matchStatus && matchSearch;
-=======
-    super.dispose();
-  }
-
-  List<Report> get _filteredReports {
-    return dummyReports.where((r) {
-      final matchType =
-          _selectedType == 'All Types' || r.type.label == _selectedType;
-      final matchStatus = !_showOpenInProgress ||
-          r.status == ReportStatus.closed;
-      return matchType && matchStatus;
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
     }).toList();
   }
 
   @override
   Widget build(BuildContext context) {
-<<<<<<< HEAD
     return Material(
       color: const Color(0xFFF2F2F2),
       child: SafeArea(
@@ -190,10 +138,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 controller: _scrollController,
                 slivers: [
                   // ── Carousel ───────────────────────────────────────────────────
-                  SliverToBoxAdapter(child: _buildCarousel()),
+                  SliverToBoxAdapter(child: buildCarousel()),
 
                   // ── Filters ────────────────────────────────────────────────────
-                  SliverToBoxAdapter(child: _buildFilters()),
+                  SliverToBoxAdapter(child: buildFilters()),
 
                   // ── Report list section with state sync ─────────────────────────────
                   ValueListenableBuilder<List<Report>>(
@@ -207,7 +155,8 @@ class _HomeScreenState extends State<HomeScreen> {
                             children: [
                               const Text('Report List',
                                   style: TextStyle(
-                                      fontWeight: FontWeight.bold, fontSize: 16)),
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16)),
                               const Spacer(),
                               Text(
                                 '${filtered.length} laporan',
@@ -225,7 +174,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     valueListenable: ReportStore.instance.reports,
                     builder: (context, allReports, _) {
                       final filtered = _getFilteredReports(allReports);
-                      final displayList = filtered.take(_displayedCount).toList();
+                      final displayList =
+                          filtered.take(_displayedCount).toList();
 
                       if (filtered.isEmpty) {
                         return const SliverFillRemaining(
@@ -271,7 +221,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                             );
                           },
-                          childCount: displayList.length + (_isLoadingMore ? 1 : 0),
+                          childCount:
+                              displayList.length + (_isLoadingMore ? 1 : 0),
                         ),
                       );
                     },
@@ -280,113 +231,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
             ),
-=======
-    return Scaffold(
-      backgroundColor: const Color(0xFFF2F2F2),
-      body: SafeArea(
-        child: CustomScrollView(
-          slivers: [
-            // ── AppBar ─────────────────────────────────────────────────────
-            SliverToBoxAdapter(
-              child: Container(
-                color: Colors.white,
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                child: Row(
-                  children: [
-                    Container(
-                      width: 36,
-                      height: 36,
-                      decoration: BoxDecoration(
-                        color: const Color(0xFF1A56C4),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(8),
-                        child: Image.asset('assets/logo.png', fit: BoxFit.contain),
-                      ),
-                    ),
-                    const SizedBox(width: 10),
-                    const Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('SapaHse',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18,
-                                color: Color(0xFF1A56C4))),
-                        Text('PT. Bukit Baiduri Energi',
-                            style: TextStyle(fontSize: 10, color: Colors.grey)),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ),
-
-            // ── Carousel ───────────────────────────────────────────────────
-            SliverToBoxAdapter(child: _buildCarousel()),
-
-            // ── Filters ────────────────────────────────────────────────────
-            SliverToBoxAdapter(child: _buildFilters()),
-
-            // ── Recent Report header ───────────────────────────────────────
-            SliverToBoxAdapter(
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
-                child: Row(
-                  children: [
-                    const Text('Recent Report',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 16)),
-                    const Spacer(),
-                    Text(
-                      '${_filteredReports.length} laporan',
-                      style: const TextStyle(fontSize: 12, color: Colors.grey),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-
-            // ── Report list ────────────────────────────────────────────────
-            _filteredReports.isEmpty
-                ? const SliverFillRemaining(
-                    hasScrollBody: false,
-                    child: Padding(
-                      padding: EdgeInsets.all(40),
-                      child: Center(
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Icon(Icons.inbox_outlined,
-                                size: 48, color: Colors.grey),
-                            SizedBox(height: 8),
-                            Text('Tidak ada laporan ditemukan',
-                                style: TextStyle(color: Colors.grey)),
-                          ],
-                        ),
-                      ),
-                    ),
-                  )
-                : SliverList(
-                    delegate: SliverChildBuilderDelegate(
-                      (context, index) => _ReportCard(
-                        report: _filteredReports[index],
-                        onTap: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (_) => ReportDetailScreen(
-                                report: _filteredReports[index]),
-                          ),
-                        ),
-                      ),
-                      childCount: _filteredReports.length,
-                    ),
-                  ),
-
-            const SliverToBoxAdapter(child: SizedBox(height: 80)),
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
           ],
         ),
       ),
@@ -394,13 +238,9 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   // ── CAROUSEL ──────────────────────────────────────────────────────────────
-  Widget _buildCarousel() {
+  Widget buildCarousel() {
     return SizedBox(
-<<<<<<< HEAD
       height: 240,
-=======
-      height: 210,
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
       child: Stack(
         children: [
           PageView.builder(
@@ -409,7 +249,6 @@ class _HomeScreenState extends State<HomeScreen> {
             itemCount: _carouselItems.length,
             itemBuilder: (_, index) {
               final item = _carouselItems[index];
-<<<<<<< HEAD
               return GestureDetector(
                 onTap: () {
                   Navigator.push(
@@ -474,77 +313,15 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ],
                 ),
-=======
-              return Stack(
-                fit: StackFit.expand,
-                children: [
-                  CachedNetworkImage(
-                    imageUrl: item['imageUrl'] as String,
-                    fit: BoxFit.cover,
-                    placeholder: (_, __) => Container(
-                      color: const Color(0xFF37474F),
-                      child: const Center(
-                        child: CircularProgressIndicator(
-                            color: Colors.white38, strokeWidth: 2),
-                      ),
-                    ),
-                    errorWidget: (_, __, ___) => Container(
-                      color: const Color(0xFF37474F),
-                      child: const Icon(Icons.image,
-                          color: Colors.white24, size: 60),
-                    ),
-                  ),
-                  // bottom gradient
-                  Positioned(
-                    left: 0, right: 0, bottom: 0,
-                    child: Container(
-                      height: 80,
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.bottomCenter,
-                          end: Alignment.topCenter,
-                          colors: [
-                            Colors.black.withOpacity(0.65),
-                            Colors.transparent,
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                  // label
-                  Positioned(
-                    bottom: 28, left: 16,
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 4),
-                      decoration: BoxDecoration(
-                        color: Colors.black38,
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: Text(
-                        item['label'] as String,
-                        style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 12,
-                            fontWeight: FontWeight.w500),
-                      ),
-                    ),
-                  ),
-                ],
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
               );
             },
           ),
 
           // Left arrow
           Positioned(
-<<<<<<< HEAD
             left: 8,
             top: 0,
             bottom: 0,
-=======
-            left: 8, top: 0, bottom: 0,
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
             child: Center(
               child: GestureDetector(
                 onTap: () {
@@ -556,20 +333,12 @@ class _HomeScreenState extends State<HomeScreen> {
                       curve: Curves.easeInOut);
                 },
                 child: Container(
-<<<<<<< HEAD
                   width: 32,
                   height: 32,
                   decoration: const BoxDecoration(
                       color: Colors.black38, shape: BoxShape.circle),
                   child: const Icon(Icons.chevron_left,
                       color: Colors.white, size: 22),
-=======
-                  width: 30, height: 30,
-                  decoration: const BoxDecoration(
-                      color: Colors.black38, shape: BoxShape.circle),
-                  child: const Icon(Icons.chevron_left,
-                      color: Colors.white, size: 20),
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
                 ),
               ),
             ),
@@ -577,13 +346,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
           // Right arrow
           Positioned(
-<<<<<<< HEAD
             right: 8,
             top: 0,
             bottom: 0,
-=======
-            right: 8, top: 0, bottom: 0,
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
             child: Center(
               child: GestureDetector(
                 onTap: () {
@@ -593,26 +358,17 @@ class _HomeScreenState extends State<HomeScreen> {
                       curve: Curves.easeInOut);
                 },
                 child: Container(
-<<<<<<< HEAD
                   width: 32,
                   height: 32,
                   decoration: const BoxDecoration(
                       color: Colors.black38, shape: BoxShape.circle),
                   child: const Icon(Icons.chevron_right,
                       color: Colors.white, size: 22),
-=======
-                  width: 30, height: 30,
-                  decoration: const BoxDecoration(
-                      color: Colors.black38, shape: BoxShape.circle),
-                  child: const Icon(Icons.chevron_right,
-                      color: Colors.white, size: 20),
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
                 ),
               ),
             ),
           ),
 
-<<<<<<< HEAD
           // Dots + Indicator (News Style)
           Positioned(
             left: 16,
@@ -638,27 +394,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
               ],
-=======
-          // Dots
-          Positioned(
-            bottom: 8, left: 0, right: 0,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: List.generate(
-                _carouselItems.length,
-                (i) => AnimatedContainer(
-                  duration: const Duration(milliseconds: 300),
-                  width: i == _currentPage ? 18 : 6,
-                  height: 6,
-                  margin: const EdgeInsets.symmetric(horizontal: 3),
-                  decoration: BoxDecoration(
-                    color:
-                        i == _currentPage ? Colors.white : Colors.white54,
-                    borderRadius: BorderRadius.circular(4),
-                  ),
-                ),
-              ),
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
             ),
           ),
         ],
@@ -667,7 +402,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   // ── FILTERS ───────────────────────────────────────────────────────────────
-  Widget _buildFilters() {
+  Widget buildFilters() {
     return Container(
       color: Colors.white,
       padding: const EdgeInsets.fromLTRB(16, 14, 16, 14),
@@ -684,10 +419,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 letterSpacing: 0.6),
           ),
           const SizedBox(height: 8),
-<<<<<<< HEAD
-=======
-
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 12),
             decoration: BoxDecoration(
@@ -703,36 +434,22 @@ class _HomeScreenState extends State<HomeScreen> {
                     .map((t) => DropdownMenuItem(value: t, child: Text(t)))
                     .toList(),
                 onChanged: (val) {
-<<<<<<< HEAD
                   if (val != null) {
                     setState(() {
                       _selectedType = val;
                       _displayedCount = 5;
                     });
                   }
-=======
-                  if (val != null) setState(() => _selectedType = val);
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
                 },
               ),
             ),
           ),
-<<<<<<< HEAD
           const SizedBox(height: 12),
           GestureDetector(
-            onTap: () =>
-                setState(() {
-                  _showOpenInProgress = !_showOpenInProgress;
-                  _displayedCount = 5;
-                }),
-=======
-
-          const SizedBox(height: 12),
-
-          GestureDetector(
-            onTap: () =>
-                setState(() => _showOpenInProgress = !_showOpenInProgress),
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
+            onTap: () => setState(() {
+              _showOpenInProgress = !_showOpenInProgress;
+              _displayedCount = 5;
+            }),
             behavior: HitTestBehavior.opaque,
             child: Row(
               children: [
@@ -763,45 +480,27 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 if (_showOpenInProgress) ...[
                   const SizedBox(width: 8),
-<<<<<<< HEAD
-                    ValueListenableBuilder<List<Report>>(
-                      valueListenable: ReportStore.instance.reports,
-                      builder: (context, reports, _) {
-                        final count = _getFilteredReports(reports).length;
-                        return Container(
-                          padding:
-                              const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-                          decoration: BoxDecoration(
-                            color: const Color(0xFF1A56C4).withValues(alpha: 0.1),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Text(
-                            '$count',
-                            style: const TextStyle(
-                                fontSize: 11,
-                                color: Color(0xFF1A56C4),
-                                fontWeight: FontWeight.bold),
-                          ),
-                        );
-                      },
-                    ),
-=======
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 8, vertical: 2),
-                    decoration: BoxDecoration(
-                      color: const Color(0xFF1A56C4).withOpacity(0.1),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Text(
-                      '${_filteredReports.length}',
-                      style: const TextStyle(
-                          fontSize: 11,
-                          color: Color(0xFF1A56C4),
-                          fontWeight: FontWeight.bold),
-                    ),
+                  ValueListenableBuilder<List<Report>>(
+                    valueListenable: ReportStore.instance.reports,
+                    builder: (context, reports, _) {
+                      final count = _getFilteredReports(reports).length;
+                      return Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 8, vertical: 2),
+                        decoration: BoxDecoration(
+                          color: const Color(0xFF1A56C4).withValues(alpha: 0.1),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Text(
+                          '$count',
+                          style: const TextStyle(
+                              fontSize: 11,
+                              color: Color(0xFF1A56C4),
+                              fontWeight: FontWeight.bold),
+                        ),
+                      );
+                    },
                   ),
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
                 ],
               ],
             ),
@@ -817,11 +516,10 @@ class _ReportCard extends StatelessWidget {
   final Report report;
   final VoidCallback onTap;
 
-  const _ReportCard({required this.report, required this.onTap});
+  const _ReportCard({super.key, required this.report, required this.onTap});
 
   Color get _severityColor {
     switch (report.severity) {
-<<<<<<< HEAD
       case ReportSeverity.low:
         return const Color(0xFF4CAF50);
       case ReportSeverity.medium:
@@ -839,39 +537,24 @@ class _ReportCard extends StatelessWidget {
         return const Color(0xFF9C27B0); // Ungu
       case ReportStatus.closed:
         return const Color(0xFF757575); // Abu
-=======
-      case ReportSeverity.low:    return const Color(0xFF4CAF50);
-      case ReportSeverity.medium: return const Color(0xFFFF9800);
-      case ReportSeverity.high:   return const Color(0xFFF44336);
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
     }
   }
 
   Color get _typeColor {
     switch (report.type) {
-<<<<<<< HEAD
       case ReportType.hazard:
         return const Color(0xFFF44336);
       case ReportType.inspection:
         return const Color(0xFF1565C0);
-=======
-      case ReportType.hazard:     return const Color(0xFFF44336);
-      case ReportType.inspection: return const Color(0xFF1565C0);
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
     }
   }
 
   IconData get _typeIcon {
     switch (report.type) {
-<<<<<<< HEAD
       case ReportType.hazard:
         return Icons.warning_amber_rounded;
       case ReportType.inspection:
         return Icons.search;
-=======
-      case ReportType.hazard:     return Icons.warning_amber_rounded;
-      case ReportType.inspection: return Icons.search;
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
     }
   }
 
@@ -880,26 +563,17 @@ class _ReportCard extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-<<<<<<< HEAD
         margin: const EdgeInsets.fromLTRB(16, 0, 16, 12),
-=======
-        margin: const EdgeInsets.fromLTRB(16, 0, 16, 10),
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(12),
           boxShadow: [
             BoxShadow(
-<<<<<<< HEAD
                 color: Colors.black.withValues(alpha: 0.06),
-=======
-                color: Colors.black.withOpacity(0.06),
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
                 blurRadius: 6,
                 offset: const Offset(0, 2)),
           ],
         ),
-<<<<<<< HEAD
         child: IntrinsicHeight(
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -931,190 +605,113 @@ class _ReportCard extends StatelessWidget {
                   ),
                 ),
               ),
-=======
-        child: Row(
-          children: [
-            // ── Thumbnail image ──────────────────────────────────────
-            ClipRRect(
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(12),
-                bottomLeft: Radius.circular(12),
-              ),
-              child: SizedBox(
-                width: 90,
-                height: 90,
-                child: CachedNetworkImage(
-                  imageUrl: report.imageUrl,
-                  fit: BoxFit.cover,
-                  placeholder: (_, __) => Container(
-                    color: const Color(0xFF546E7A),
-                    child: const Center(
-                      child: CircularProgressIndicator(
-                          color: Colors.white38, strokeWidth: 2),
-                    ),
-                  ),
-                  errorWidget: (_, __, ___) => Container(
-                    color: const Color(0xFF546E7A),
-                    child: const Icon(Icons.image,
-                        color: Colors.white38, size: 32),
-                  ),
-                ),
-              ),
-            ),
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
 
-            // ── Content ──────────────────────────────────────────────
-            Expanded(
-              child: Padding(
-<<<<<<< HEAD
-                padding: const EdgeInsets.all(12),
-=======
-                padding: const EdgeInsets.fromLTRB(12, 10, 12, 10),
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // Type badge + Severity badge
-                    Row(
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 8, vertical: 2),
-                          decoration: BoxDecoration(
-<<<<<<< HEAD
-                            color: _typeColor.withValues(alpha: 0.1),
-=======
-                            color: _typeColor.withOpacity(0.1),
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
-                            borderRadius: BorderRadius.circular(8),
+              // ── Content ──────────────────────────────────────────────
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(12),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // Type badge + Severity badge
+                      Row(
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 8, vertical: 2),
+                            decoration: BoxDecoration(
+                              color: _typeColor.withValues(alpha: 0.1),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Icon(_typeIcon, size: 11, color: _typeColor),
+                                const SizedBox(width: 3),
+                                Text(
+                                  report.type.label,
+                                  style: TextStyle(
+                                      fontSize: 10,
+                                      color: _typeColor,
+                                      fontWeight: FontWeight.w600),
+                                ),
+                              ],
+                            ),
                           ),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Icon(_typeIcon, size: 11, color: _typeColor),
-                              const SizedBox(width: 3),
-                              Text(
-                                report.type.label,
-                                style: TextStyle(
-                                    fontSize: 10,
-                                    color: _typeColor,
-                                    fontWeight: FontWeight.w600),
-                              ),
-                            ],
+                          const Spacer(),
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 8, vertical: 2),
+                            decoration: BoxDecoration(
+                              color: _severityColor,
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Text(
+                              report.severity.label,
+                              style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 9,
+                                  fontWeight: FontWeight.w600),
+                            ),
                           ),
-                        ),
-                        const Spacer(),
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-<<<<<<< HEAD
-                              horizontal: 8, vertical: 2),
-=======
-                              horizontal: 10, vertical: 3),
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
-                          decoration: BoxDecoration(
-                            color: _severityColor,
-                            borderRadius: BorderRadius.circular(10),
+                        ],
+                      ),
+                      const SizedBox(height: 8),
+
+                      // Title
+                      Text(
+                        report.title,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                            fontSize: 13,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black87),
+                      ),
+                      const SizedBox(height: 4),
+
+                      // Description
+                      Text(
+                        report.description,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                            fontSize: 11, color: Colors.grey, height: 1.4),
+                      ),
+                      const SizedBox(height: 8),
+
+                      // Status badge
+                      Row(
+                        children: [
+                          Container(
+                            width: 8,
+                            height: 8,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: _statusColor,
+                            ),
                           ),
-                          child: Text(
-                            report.severity.label,
-                            style: const TextStyle(
-                                color: Colors.white,
-<<<<<<< HEAD
-                                fontSize: 9,
-=======
+                          const SizedBox(width: 6),
+                          Text(
+                            report.status.label,
+                            style: TextStyle(
                                 fontSize: 11,
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
-                                fontWeight: FontWeight.w600),
+                                fontWeight: FontWeight.bold,
+                                color: _statusColor),
                           ),
-                        ),
-                      ],
-                    ),
-<<<<<<< HEAD
-                    const SizedBox(height: 8),
-=======
-
-                    const SizedBox(height: 6),
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
-
-                    // Title
-                    Text(
-                      report.title,
-<<<<<<< HEAD
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                          fontSize: 13,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black87),
-                    ),
-                    const SizedBox(height: 4),
-=======
-                      style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14,
-                          color: Colors.black87),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-
-                    const SizedBox(height: 3),
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
-
-                    // Description
-                    Text(
-                      report.description,
-<<<<<<< HEAD
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                          fontSize: 11, color: Colors.grey, height: 1.4),
-                    ),
-                    const SizedBox(height: 8),
-
-                    // Status badge
-                    Row(
-                      children: [
-                        Container(
-                          width: 8,
-                          height: 8,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: _statusColor,
-                          ),
-                        ),
-                        const SizedBox(width: 6),
-                        Text(
-                          report.status.label,
-                          style: TextStyle(
-                              fontSize: 11,
-                              fontWeight: FontWeight.bold,
-                              color: _statusColor),
-                        ),
-                        const Spacer(),
-                        Icon(Icons.chevron_right,
-                            color: Colors.grey.shade400, size: 16),
-                      ],
-=======
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                          fontSize: 12, color: Colors.grey, height: 1.4),
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
-                    ),
-                  ],
+                          const Spacer(),
+                          Icon(Icons.chevron_right,
+                              color: Colors.grey.shade400, size: 16),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
-<<<<<<< HEAD
-    ),
-  );
-}
-}
-=======
     );
   }
 }
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86

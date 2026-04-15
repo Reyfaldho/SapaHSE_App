@@ -1,11 +1,6 @@
-<<<<<<< HEAD
-import 'dart:io' show File;
+import 'dart:io';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
-=======
-import 'package:flutter/material.dart';
-import 'dart:io';
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
 import 'package:image_picker/image_picker.dart';
 import '../models/report.dart';
 
@@ -32,11 +27,7 @@ class _CreateHazardScreenState extends State<CreateHazardScreen> {
   bool _isSubmitting = false;
 
   // ── Photo ──────────────────────────────────────────────────────────────────
-<<<<<<< HEAD
   XFile? _photoFile;
-=======
-  File? _photoFile;
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
   final _picker = ImagePicker();
 
   @override
@@ -56,11 +47,7 @@ class _CreateHazardScreenState extends State<CreateHazardScreen> {
         maxWidth: 1280,
       );
       if (picked != null) {
-<<<<<<< HEAD
         setState(() => _photoFile = picked);
-=======
-        setState(() => _photoFile = File(picked.path));
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
       }
     } catch (e) {
       if (mounted) {
@@ -149,11 +136,7 @@ class _CreateHazardScreenState extends State<CreateHazardScreen> {
                   width: 40,
                   height: 40,
                   decoration: BoxDecoration(
-<<<<<<< HEAD
                     color: Colors.red.withValues(alpha: 0.1),
-=======
-                    color: Colors.red.withOpacity(0.1),
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: const Icon(Icons.delete_outline,
@@ -324,11 +307,7 @@ class _CreateHazardScreenState extends State<CreateHazardScreen> {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: _blue,
                     foregroundColor: Colors.white,
-<<<<<<< HEAD
                     disabledBackgroundColor: _blue.withValues(alpha: 0.5),
-=======
-                    disabledBackgroundColor: _blue.withOpacity(0.5),
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12)),
                     elevation: 0,
@@ -361,11 +340,7 @@ class _CreateHazardScreenState extends State<CreateHazardScreen> {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
-<<<<<<< HEAD
         border: Border.all(color: _blue.withValues(alpha: 0.3), width: 1.5),
-=======
-        border: Border.all(color: _blue.withOpacity(0.3), width: 1.5),
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -399,13 +374,9 @@ class _CreateHazardScreenState extends State<CreateHazardScreen> {
           child: SizedBox(
             width: double.infinity,
             height: 200,
-<<<<<<< HEAD
             child: kIsWeb
                 ? Image.network(_photoFile!.path, fit: BoxFit.cover)
                 : Image.file(File(_photoFile!.path), fit: BoxFit.cover),
-=======
-            child: Image.file(_photoFile!, fit: BoxFit.cover),
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
           ),
         ),
         // Change photo button
@@ -455,11 +426,7 @@ class _CreateHazardScreenState extends State<CreateHazardScreen> {
               margin: const EdgeInsets.only(right: 8),
               padding: const EdgeInsets.symmetric(vertical: 11),
               decoration: BoxDecoration(
-<<<<<<< HEAD
                 color: isSelected ? color : color.withValues(alpha: 0.08),
-=======
-                color: isSelected ? color : color.withOpacity(0.08),
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
                 borderRadius: BorderRadius.circular(8),
                 border: Border.all(color: color, width: isSelected ? 2 : 1),
               ),
@@ -488,11 +455,7 @@ class _CreateHazardScreenState extends State<CreateHazardScreen> {
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
-<<<<<<< HEAD
               color: Colors.black.withValues(alpha: 0.05),
-=======
-              color: Colors.black.withOpacity(0.05),
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
               blurRadius: 4,
               offset: const Offset(0, 2))
         ],

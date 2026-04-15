@@ -1,4 +1,7 @@
+import 'dart:io';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 class CreateInspectionScreen extends StatefulWidget {
   const CreateInspectionScreen({super.key});
@@ -23,6 +26,9 @@ class _CreateInspectionScreenState extends State<CreateInspectionScreen> {
   String _selectedArea = 'Area Tambang';
   String _selectedResult = 'Sesuai';
   bool _isSubmitting = false;
+
+  XFile? _photoFile;
+  final _picker = ImagePicker();
 
   final List<String> _areas = [
     'Area Tambang',
@@ -49,6 +55,135 @@ class _CreateInspectionScreenState extends State<CreateInspectionScreen> {
     _notesController.dispose();
     _inspectorController.dispose();
     super.dispose();
+  }
+
+  // ── Pick photo ─────────────────────────────────────────────────────────────
+  Future<void> _pickPhoto(ImageSource source) async {
+    try {
+      final picked = await _picker.pickImage(
+        source: source,
+        imageQuality: 80,
+        maxWidth: 1280,
+      );
+      if (picked != null) {
+        setState(() => _photoFile = picked);
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('Gagal mengambil foto: $e'),
+          backgroundColor: Colors.red,
+          behavior: SnackBarBehavior.floating,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+          margin: const EdgeInsets.all(16),
+        ));
+      }
+    }
+  }
+
+  void _showPhotoOptions() {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.transparent,
+      builder: (_) => Container(
+        margin: const EdgeInsets.fromLTRB(16, 0, 16, 32),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 12, bottom: 4),
+              child: Container(
+                width: 40,
+                height: 4,
+                decoration: BoxDecoration(
+                  color: Colors.grey.shade300,
+                  borderRadius: BorderRadius.circular(2),
+                ),
+              ),
+            ),
+            const Padding(
+              padding: EdgeInsets.symmetric(vertical: 10),
+              child: Text('Tambah Foto',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
+            ),
+            const Divider(height: 1),
+            ListTile(
+              leading: Container(
+                width: 40,
+                height: 40,
+                decoration: BoxDecoration(
+                    color: _blueLight, borderRadius: BorderRadius.circular(10)),
+                child: const Icon(Icons.camera_alt_outlined,
+                    color: _blue, size: 22),
+              ),
+              title: const Text('Ambil Foto dari Kamera'),
+              trailing: const Icon(Icons.chevron_right, color: Colors.grey),
+              onTap: () {
+                Navigator.pop(context);
+                _pickPhoto(ImageSource.camera);
+              },
+            ),
+            ListTile(
+              leading: Container(
+                width: 40,
+                height: 40,
+                decoration: BoxDecoration(
+                    color: _blueLight, borderRadius: BorderRadius.circular(10)),
+                child: const Icon(Icons.photo_library_outlined,
+                    color: _blue, size: 22),
+              ),
+              title: const Text('Pilih dari Galeri'),
+              trailing: const Icon(Icons.chevron_right, color: Colors.grey),
+              onTap: () {
+                Navigator.pop(context);
+                _pickPhoto(ImageSource.gallery);
+              },
+            ),
+            if (_photoFile != null)
+              ListTile(
+                leading: Container(
+                  width: 40,
+                  height: 40,
+                  decoration: BoxDecoration(
+                    color: Colors.red.withValues(alpha: 0.1),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: const Icon(Icons.delete_outline,
+                      color: Colors.red, size: 22),
+                ),
+                title: const Text('Hapus Foto',
+                    style: TextStyle(color: Colors.red)),
+                onTap: () {
+                  Navigator.pop(context);
+                  setState(() => _photoFile = null);
+                },
+              ),
+            const SizedBox(height: 8),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 0, 16, 12),
+              child: SizedBox(
+                width: double.infinity,
+                child: TextButton(
+                  onPressed: () => Navigator.pop(context),
+                  style: TextButton.styleFrom(
+                    foregroundColor: Colors.grey,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      side: BorderSide(color: Colors.grey.shade200),
+                    ),
+                  ),
+                  child: const Text('Batal'),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
   // ── Submit ─────────────────────────────────────────────────────────────────
@@ -134,39 +269,12 @@ class _CreateInspectionScreenState extends State<CreateInspectionScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // ── Photo placeholder ─────────────────────────────────────
-              Container(
-                width: double.infinity,
-                height: 160,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12),
-                  border:
-                      Border.all(color: _blue.withOpacity(0.3), width: 1.5),
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      width: 56,
-                      height: 56,
-                      decoration: const BoxDecoration(
-                          color: _blueLight, shape: BoxShape.circle),
-                      child: const Icon(Icons.camera_alt_outlined,
-                          color: _blue, size: 28),
-                    ),
-                    const SizedBox(height: 10),
-                    const Text('Tambah Foto Inspeksi',
-                        style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            color: _blue,
-                            fontSize: 14)),
-                    const SizedBox(height: 2),
-                    const Text('Kamera atau Galeri',
-                        style:
-                            TextStyle(fontSize: 12, color: Colors.grey)),
-                  ],
-                ),
+              // ── Photo section ─────────────────────────────────────
+              GestureDetector(
+                onTap: _showPhotoOptions,
+                child: _photoFile == null
+                    ? _buildPhotoPlaceholder()
+                    : _buildPhotoPreview(),
               ),
 
               const SizedBox(height: 16),
@@ -449,6 +557,78 @@ class _CreateInspectionScreenState extends State<CreateInspectionScreen> {
           onChanged: onChanged,
         ),
       ),
+    );
+  }
+
+  Widget _buildPhotoPlaceholder() {
+    return Container(
+      width: double.infinity,
+      height: 160,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: _blue.withOpacity(0.3), width: 1.5),
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            width: 56,
+            height: 56,
+            decoration:
+                const BoxDecoration(color: _blueLight, shape: BoxShape.circle),
+            child:
+                const Icon(Icons.camera_alt_outlined, color: _blue, size: 28),
+          ),
+          const SizedBox(height: 10),
+          const Text('Tambah Foto Inspeksi',
+              style: TextStyle(
+                  fontWeight: FontWeight.w600, color: _blue, fontSize: 14)),
+          const SizedBox(height: 2),
+          const Text('Kamera atau Galeri',
+              style: TextStyle(fontSize: 12, color: Colors.grey)),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildPhotoPreview() {
+    return Stack(
+      children: [
+        ClipRRect(
+          borderRadius: BorderRadius.circular(12),
+          child: SizedBox(
+            width: double.infinity,
+            height: 200,
+            child: kIsWeb
+                ? Image.network(_photoFile!.path, fit: BoxFit.cover)
+                : Image.file(File(_photoFile!.path), fit: BoxFit.cover),
+          ),
+        ),
+        Positioned(
+          top: 10,
+          right: 10,
+          child: GestureDetector(
+            onTap: _showPhotoOptions,
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+              decoration: BoxDecoration(
+                color: Colors.black54,
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: const Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(Icons.edit, color: Colors.white, size: 14),
+                  SizedBox(width: 4),
+                  Text('Ganti',
+                      style: TextStyle(color: Colors.white, fontSize: 12)),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

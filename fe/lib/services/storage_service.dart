@@ -2,17 +2,10 @@ import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class StorageService {
-<<<<<<< HEAD
   static const _keyToken = 'auth_token';
   static const _keyUser = 'auth_user';
   static const _keyExpiry = 'auth_expiry'; // ← baru
   static const _keyRememberMe = 'auth_remember'; // ← baru
-=======
-  static const _keyToken      = 'auth_token';
-  static const _keyUser       = 'auth_user';
-  static const _keyExpiry     = 'auth_expiry';     // ← baru
-  static const _keyRememberMe = 'auth_remember';   // ← baru
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
 
   static SharedPreferences? _prefs;
 
@@ -22,52 +15,29 @@ class StorageService {
   }
 
   // ── Token ─────────────────────────────────────────────────────────────────
-<<<<<<< HEAD
   static Future<void> saveToken(String token,
       {required bool rememberMe}) async {
     final prefs = await _getPrefs();
 
     final duration =
-        rememberMe 
-        ? const Duration(days: 7) 
-        : const Duration(hours: 1);
+        rememberMe ? const Duration(days: 7) : const Duration(hours: 0);
 
     final expiry = DateTime.now().add(duration).toIso8601String();
 
     await prefs.setString(_keyToken, token);
     await prefs.setString(_keyExpiry, expiry);
     await prefs.setBool(_keyRememberMe, rememberMe);
-=======
-  static Future<void> saveToken(String token, {required bool rememberMe}) async {
-    final prefs = await _getPrefs();
-
-    final duration = rememberMe
-        ? const Duration(days: 7) 
-        : const Duration(hours: 0);  
-
-    final expiry = DateTime.now().add(duration).toIso8601String();
-
-    await prefs.setString(_keyToken,      token);
-    await prefs.setString(_keyExpiry,     expiry);
-    await prefs.setBool  (_keyRememberMe, rememberMe);
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
   }
 
   static Future<String?> getToken() async {
     final prefs = await _getPrefs();
-<<<<<<< HEAD
     final token = prefs.getString(_keyToken);
-=======
-    final token  = prefs.getString(_keyToken);
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86
     final expiry = prefs.getString(_keyExpiry);
 
     if (token == null || expiry == null) return null;
 
-    // Cek apakah sesi sudah kadaluarsa
     final expiryDate = DateTime.parse(expiry);
     if (DateTime.now().isAfter(expiryDate)) {
-      // Token kadaluarsa — hapus semua
       await clear();
       return null;
     }
@@ -111,13 +81,12 @@ class StorageService {
 
   // ── Cek login + validasi expiry sekaligus ─────────────────────────────────
   static Future<bool> isLoggedIn() async {
-    final token = await getToken(); // getToken() sudah handle expiry check
+    final token = await getToken();
     return token != null;
   }
 
   // ── Sisa waktu sesi (opsional, untuk ditampilkan di UI) ───────────────────
   static Future<Duration?> getRemainingSession() async {
-<<<<<<< HEAD
     final prefs = await _getPrefs();
     final expiry = prefs.getString(_keyExpiry);
     if (expiry == null) return null;
@@ -127,14 +96,3 @@ class StorageService {
     return remaining.isNegative ? null : remaining;
   }
 }
-=======
-    final prefs  = await _getPrefs();
-    final expiry = prefs.getString(_keyExpiry);
-    if (expiry == null) return null;
-
-    final expiryDate  = DateTime.parse(expiry);
-    final remaining   = expiryDate.difference(DateTime.now());
-    return remaining.isNegative ? null : remaining;
-  }
-}
->>>>>>> 2ee61afce10cfc11d227c60d52e0f4f53e990d86

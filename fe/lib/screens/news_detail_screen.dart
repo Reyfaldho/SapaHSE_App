@@ -38,7 +38,7 @@ class NewsDetailScreen extends StatelessWidget {
               onTap: () => Navigator.pop(context),
               child: Container(
                 margin: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: Colors.black45,
                   shape: BoxShape.circle,
                 ),
@@ -52,7 +52,7 @@ class NewsDetailScreen extends StatelessWidget {
                 ),
                 child: Container(
                   margin: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     color: Colors.black45,
                     shape: BoxShape.circle,
                   ),
