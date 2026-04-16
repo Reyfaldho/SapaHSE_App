@@ -39,10 +39,9 @@ class AuthService {
 
   // ── Register ──────────────────────────────────────────────────────────────
   static Future<AuthResult> register({
-    required String nik,
-    String? employeeId,
+    required String employeeId,
     required String fullName,
-    required String email,
+    required String personalEmail,
     required String password,
     String? phoneNumber,
     String? position,
@@ -51,11 +50,18 @@ class AuthService {
     final response = await ApiService.post(
       '/register',
       {
-        'nik': nik,
-        'employee_id': employeeId,
+        'employee_id': employeeId, // dari NIK UI
         'full_name': fullName,
-        'email': email,
+        'personal_email': personalEmail,
         'password': password,
+
+        // 🔥 TAMBAHAN WAJIB
+        'company': 'PT Bukit Baiduri Energi',
+        'work_email': null,
+        'role': 'user',
+        'is_active': true,
+
+        // optional
         if (phoneNumber != null) 'phone_number': phoneNumber,
         if (position != null) 'position': position,
         if (department != null) 'department': department,

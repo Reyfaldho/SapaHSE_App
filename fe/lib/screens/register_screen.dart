@@ -14,7 +14,7 @@ class _RegisterScreenState extends State<RegisterScreen>
     with SingleTickerProviderStateMixin {
   final _formKey = GlobalKey<FormState>();
   final _namaCtrl = TextEditingController();
-  final _nikCtrl = TextEditingController();
+  final _employeeidCtrl = TextEditingController();
   final _emailPribadiCtrl = TextEditingController();
   final _emailKantorCtrl = TextEditingController();
   final _teleponCtrl = TextEditingController();
@@ -64,7 +64,7 @@ class _RegisterScreenState extends State<RegisterScreen>
   @override
   void dispose() {
     _namaCtrl.dispose();
-    _nikCtrl.dispose();
+    _employeeidCtrl.dispose();
     _emailPribadiCtrl.dispose();
     _emailKantorCtrl.dispose();
     _teleponCtrl.dispose();
@@ -79,7 +79,7 @@ class _RegisterScreenState extends State<RegisterScreen>
     // Validate step 0 fields
     if (_currentStep == 0) {
       if (_namaCtrl.text.isEmpty ||
-          _nikCtrl.text.isEmpty ||
+          _employeeidCtrl.text.isEmpty ||
           _emailPribadiCtrl.text.isEmpty ||
           _teleponCtrl.text.isEmpty ||
           _jabatanCtrl.text.isEmpty) {
@@ -95,7 +95,7 @@ class _RegisterScreenState extends State<RegisterScreen>
         );
         return;
       }
-      if (_nikCtrl.text.length < 10) {
+      if (_employeeidCtrl.text.length < 10) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: const Text('NIK minimal 10 digit'),
@@ -140,10 +140,9 @@ class _RegisterScreenState extends State<RegisterScreen>
 
     try {
       final response = await AuthService.register(
-        nik: _nikCtrl.text,
-        employeeId: _nikCtrl.text,
+        employeeId: _employeeidCtrl.text,
         fullName: _namaCtrl.text,
-        email: _emailPribadiCtrl.text,
+        personalEmail: _emailPribadiCtrl.text,
         password: _passCtrl.text,
         phoneNumber: _teleponCtrl.text,
         position: _jabatanCtrl.text,
@@ -435,7 +434,7 @@ class _RegisterScreenState extends State<RegisterScreen>
         _label('NIK *'),
         const SizedBox(height: 6),
         TextFormField(
-          controller: _nikCtrl,
+          controller: _employeeidCtrl,
           keyboardType: TextInputType.number,
           inputFormatters: [
             FilteringTextInputFormatter.digitsOnly,
@@ -608,7 +607,7 @@ class _RegisterScreenState extends State<RegisterScreen>
           child: Column(
             children: [
               _SummaryRow(label: 'Nama', value: _namaCtrl.text),
-              _SummaryRow(label: 'NIK', value: _nikCtrl.text),
+              _SummaryRow(label: 'NIK', value: _employeeidCtrl.text),
               _SummaryRow(label: 'Email', value: _emailPribadiCtrl.text),
               if (_emailKantorCtrl.text.isNotEmpty)
                 _SummaryRow(label: 'Kantor', value: _emailKantorCtrl.text),

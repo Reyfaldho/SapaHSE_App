@@ -323,6 +323,33 @@ class _LoginScreenState extends State<LoginScreen>
                                           fontWeight: FontWeight.bold)),
                             ),
                           ),
+
+                          const SizedBox(height: 16),
+
+                          // ── REGISTER LINK ───────────────────────────────
+                          Center(
+                            child: GestureDetector(
+                              onTap: () {
+                                Navigator.pushNamed(context, '/register');
+                              },
+                              child: RichText(
+                                text: const TextSpan(
+                                  text: 'Belum punya akun? ',
+                                  style: TextStyle(
+                                      color: Colors.black54, fontSize: 13),
+                                  children: [
+                                    TextSpan(
+                                      text: 'Daftar',
+                                      style: TextStyle(
+                                        color: Color(0xFF1A56C4),
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -334,9 +361,6 @@ class _LoginScreenState extends State<LoginScreen>
         ),
       ),
     );
-
-    // Place register link here temporarily - need to fix properly
-    return const SizedBox();
   }
 
   void _showForgotPasswordDialog(BuildContext context) {

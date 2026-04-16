@@ -8,6 +8,7 @@ import 'screens/profile_screen.dart';
 import 'screens/create_hazard_screen.dart';
 import 'screens/create_inspection_screen.dart';
 import 'screens/qr_scan_screen.dart';
+import 'screens/register_screen.dart';
 
 void main() async {
   // Ensure Flutter is initialized before any async work
@@ -33,6 +34,12 @@ class BBEApp extends StatelessWidget {
         useMaterial3: true,
         fontFamily: 'Roboto',
       ),
+
+      // 👇 TAMBAHKAN INI
+      routes: {
+        '/register': (context) => const RegisterScreen(),
+      },
+
       home: const SplashScreen(),
     );
   }
@@ -73,8 +80,7 @@ class _MainScreenState extends State<MainScreen> {
         },
         onCreateHazard: () {
           Navigator.pop(context);
-          Navigator.push(
-              context,
+          Navigator.push(context,
               MaterialPageRoute(builder: (_) => const CreateHazardScreen()));
         },
         onCreateInspection: () {
@@ -336,8 +342,7 @@ class _NavItem extends StatelessWidget {
               style: TextStyle(
                 fontSize: 11,
                 color: isActive ? const Color(0xFF1A56C4) : Colors.grey,
-                fontWeight:
-                    isActive ? FontWeight.w600 : FontWeight.normal,
+                fontWeight: isActive ? FontWeight.w600 : FontWeight.normal,
               ),
             ),
           ],
